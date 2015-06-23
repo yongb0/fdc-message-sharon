@@ -45,6 +45,7 @@
                 var name = val.name;
                 var email = val.email;
                 var id = val.id;
+                var hubby = val.hubby;
 
               //  console.log(name+'|'+email);
 
