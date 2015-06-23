@@ -1,0 +1,42 @@
+
+
+#profile-container
+{
+	margin: 0px auto;
+	width: 1200px;
+	background: #f9f9f9;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+#profile-container table
+{
+	margin: 20px auto;
+}
+#profile-container table tr td
+{
+	vertical-align: center;
+	padding: 5px 10px;
+}
+#profile-container table tr td span
+{
+	color: red;
+}
+#profile-pic
+{
+	width: 220px;
+}
+#profile-container table textarea
+{
+	width: 250px;
+	height: 80px;
+	max-width: 300px;
+	max-height: 150px;
+}
+#birthdate .date-icon img
+{
+	width: 16px;
+}
+#save-changes
+{
+	display: none;
+}

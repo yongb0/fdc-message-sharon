@@ -227,7 +227,8 @@ class Router {
  * @throws RouterException
  */
 	protected static function _validateRouteClass($routeClass) {
-		if ($routeClass !== 'CakeRoute' &&
+		if (
+			$routeClass !== 'CakeRoute' &&
 			(!class_exists($routeClass) || !is_subclass_of($routeClass, 'CakeRoute'))
 		) {
 			throw new RouterException(__d('cake_dev', 'Route class not found, or route class is not a subclass of CakeRoute'));
@@ -289,13 +290,13 @@ class Router {
  *
  * The above shows the use of route parameter defaults, and providing routing parameters for a static route.
  *
- * ```
+ * {{{
  * Router::connect(
  *   '/:lang/:controller/:action/:id',
  *   array(),
  *   array('id' => '[0-9]+', 'lang' => '[a-z]{3}')
  * );
- * ```
+ * }}}
  *
  * Shows connecting a route with custom route parameters as well as providing patterns for those parameters.
  * Patterns for routing parameters do not need capturing groups, as one will be added for each route params.
@@ -354,8 +355,9 @@ class Router {
 				break;
 			}
 		}
-		if (isset($defaults['prefix']) && !in_array($defaults['prefix'], self::$_prefixes)) {
+		if (isset($defaults['prefix'])) {
 			self::$_prefixes[] = $defaults['prefix'];
+			self::$_prefixes = array_keys(array_flip(self::$_prefixes));
 		}
 		$defaults += array('plugin' => null);
 		if (empty($options['action'])) {
@@ -426,37 +428,37 @@ class Router {
  *
  * Do not parse any named parameters:
  *
- * ``` Router::connectNamed(false); ```
+ * {{{ Router::connectNamed(false); }}}
  *
  * Parse only default parameters used for CakePHP's pagination:
  *
- * ``` Router::connectNamed(false, array('default' => true)); ```
+ * {{{ Router::connectNamed(false, array('default' => true)); }}}
  *
  * Parse only the page parameter if its value is a number:
  *
- * ``` Router::connectNamed(array('page' => '[\d]+'), array('default' => false, 'greedy' => false)); ```
+ * {{{ Router::connectNamed(array('page' => '[\d]+'), array('default' => false, 'greedy' => false)); }}}
  *
  * Parse only the page parameter no matter what.
  *
- * ``` Router::connectNamed(array('page'), array('default' => false, 'greedy' => false)); ```
+ * {{{ Router::connectNamed(array('page'), array('default' => false, 'greedy' => false)); }}}
  *
  * Parse only the page parameter if the current action is 'index'.
  *
- * ```
+ * {{{
  * Router::connectNamed(
  *    array('page' => array('action' => 'index')),
  *    array('default' => false, 'greedy' => false)
  * );
- * ```
+ * }}}
  *
  * Parse only the page parameter if the current action is 'index' and the controller is 'pages'.
  *
- * ```
+ * {{{
  * Router::connectNamed(
  *    array('page' => array('action' => 'index', 'controller' => 'pages')),
  *    array('default' => false, 'greedy' => false)
  * );
- * ```
+ * }}}
  *
  * ### Options
  *
@@ -608,9 +610,11 @@ class Router {
 
 		extract(self::_parseExtension($url));
 
-		foreach (self::$routes as $route) {
+		for ($i = 0, $len = count(self::$routes); $i < $len; $i++) {
+			$route =& self::$routes[$i];
+
 			if (($r = $route->parse($url)) !== false) {
-				self::$_currentRoute[] = $route;
+				self::$_currentRoute[] =& $route;
 				$out = $r;
 				break;
 			}
@@ -730,7 +734,7 @@ class Router {
  *
  * @param string $name Parameter name
  * @param bool $current Current parameter, useful when using requestAction
- * @return string|null Parameter value
+ * @return string Parameter value
  */
 	public static function getParam($name = 'controller', $current = false) {
 		$params = Router::getParams($current);
@@ -902,12 +906,12 @@ class Router {
 
 			$match = false;
 
-			foreach (self::$routes as $route) {
+			for ($i = 0, $len = count(self::$routes); $i < $len; $i++) {
 				$originalUrl = $url;
 
-				$url = $route->persistParams($url, $params);
+				$url = self::$routes[$i]->persistParams($url, $params);
 
-				if ($match = $route->match($url)) {
+				if ($match = self::$routes[$i]->match($url)) {
 					$output = trim($match, '/');
 					break;
 				}
@@ -991,10 +995,12 @@ class Router {
 		);
 
 		$keys = array_values(array_diff(array_keys($url), $skip));
+		$count = count($keys);
 
 		// Remove this once parsed URL parameters can be inserted into 'pass'
-		foreach ($keys as $key) {
-			if (is_numeric($key)) {
+		for ($i = 0; $i < $count; $i++) {
+			$key = $keys[$i];
+			if (is_numeric($keys[$i])) {
 				$args[] = $url[$key];
 			} else {
 				$named[$key] = $url[$key];

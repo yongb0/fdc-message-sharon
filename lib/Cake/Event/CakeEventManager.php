@@ -221,7 +221,6 @@ class CakeEventManager {
  *
  * @param string|CakeEvent $event the event key name or instance of CakeEvent
  * @return CakeEvent
- * @triggers $event
  */
 	public function dispatch($event) {
 		if (is_string($event)) {

@@ -1,0 +1,118 @@
+
+#messages-container
+{
+	font-family: Verdana;
+	width: 900px;
+	border: 1px solid #999;
+	margin: 50px auto;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background: #f9f9f9;
+}
+#messages-container table tr td
+{
+	border-bottom: 1px solid #999;
+}
+.message-container.left
+{
+	width: 880px;
+	height: 90px;
+	padding: 5px;
+	float: left;
+}
+.message-container.left .sender-img
+{
+	border: 1px solid #999;
+	float: left;
+	width: 95px;
+	height: 90px;
+}
+.message-container.left img
+{
+	height: 85px;
+	width: 90px;
+	cursor: pointer;
+}
+.message-container.left .message-content
+{
+	border: 1px solid #999;
+	width: 770px;
+	height: 50px;
+	margin-left: 100px;
+	padding: 5px;
+	font: 14px Arial;
+}
+.message-container.left .message-time
+{
+	font: 14px Arial;
+	text-align: right;
+	border: 1px solid #999;
+	width: 770px;
+	height: 25px;
+	margin-top: 1px;
+	margin-left: 100px;
+	padding: 5px;
+}
+
+.message-container.right
+{
+	width: 880px;
+	height: 90px;
+	padding: 5px;
+	float: right;
+	font: 14px Arial;
+}
+.message-container.right .sender-img
+{
+	border: 1px solid #999;
+	float: right;
+	width: 95px;
+	height: 90px;
+	overflow: hidden;
+}
+.message-container.right img
+{
+	height: 85px;
+	width: 90px;
+	cursor: pointer;
+}
+.message-container.right .message-content
+{
+	border: 1px solid #999;
+	width: 770px;
+	height: 50px;
+	padding: 5px;
+}
+.message-container.right .message-time
+{
+	font: 14px Arial;
+	text-align: right;
+	border: 1px solid #999;
+	width: 770px;
+	height: 25px;
+	margin-top: 1px;
+	padding: 5px;
+}
+#td-loading img
+{
+	width: 50px;
+}
+#frm-message textarea
+{
+	float: left;
+	width: 90%;
+}
+#frm-message button
+{
+	margin: 10px;
+}
+.delete-icon
+{
+	width: 20px;
+	height: 20px;
+	background-image: url('../img/icons/delete.png');
+	background-size: 100% 100%;
+	cursor: pointer;
+	float:right;
+	margin-right: 10px;
+}

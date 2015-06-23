@@ -22,7 +22,7 @@
  * more information.
  *
  * @package Cake.Cache.Engine
- * @deprecated 3.0.0 You should use the Memcached adapter instead.
+ * @deprecated You should use the Memcached adapter instead.
  */
 class MemcacheEngine extends CacheEngine {
 

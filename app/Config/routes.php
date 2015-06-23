@@ -4,9 +4,7 @@
  *
  * In this file, you set up routes to your controllers and their actions.
  * Routes are very important mechanism that allows you to freely connect
- * different urls to chosen controllers and their actions (functions).
- *
- * PHP 5
+ * different URLs to chosen controllers and their actions (functions).
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -26,16 +24,10 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
-	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-	Router::connect('/', array('controller' => 'users', 'action' => 'login'));
+	Router::connect('/', array('controller' => 'main', 'action' => 'index', 'home'));
 /**
- * ...and connect the rest of 'Pages' controller's urls.
- */
-	//Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
-	Router::connect('/dashboard', array('controller' => 'users', 'action' => 'index'));
-	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
-	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
-	
+ * ...and connect the rest of 'Pages' controller's URLs.
+ */	
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

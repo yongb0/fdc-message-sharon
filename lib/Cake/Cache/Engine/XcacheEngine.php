@@ -80,7 +80,7 @@ class XcacheEngine extends CacheEngine {
 	public function read($key) {
 		if (xcache_isset($key)) {
 			$time = time();
-			$cachetime = (int)xcache_get($key . '_expires');
+			$cachetime = intval(xcache_get($key . '_expires'));
 			if ($cachetime < $time || ($time + $this->settings['duration']) < $cachetime) {
 				return false;
 			}

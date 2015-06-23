@@ -1,0 +1,11 @@
+
+#options-container
+{
+	margin: 10px 50px;
+}
+#options-container ul li
+{
+	padding: 10px;
+	list-style-type: none;
+	display: inline-block;
+}

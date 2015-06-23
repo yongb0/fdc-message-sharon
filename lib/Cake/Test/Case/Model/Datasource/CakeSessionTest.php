@@ -280,7 +280,7 @@ class CakeSessionTest extends CakeTestCase {
  * @return void
  */
 	public function testReadyEmpty() {
-		$this->assertNull(TestCakeSession::read(''));
+		$this->assertFalse(TestCakeSession::read(''));
 	}
 
 /**

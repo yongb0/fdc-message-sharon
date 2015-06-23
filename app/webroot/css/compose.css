@@ -1,0 +1,86 @@
+
+body
+{
+	
+}
+#message-container
+{
+	margin: 50px auto;
+	background: #f9f9f9;
+	width: 600px;
+	padding: 40px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+#message-container table
+{
+	margin: 0px auto;
+}
+#message-container span
+{
+	color: red;
+}
+#message-container tr td
+{
+	font: 14px Verdana;
+	padding: 5px 10px;
+}
+#message-container tr:nth-child(3)
+{
+	vertical-align: top;
+}
+input
+{
+	height: 25px;
+	padding: 3px 5px;
+	border-radius: 2px;
+	border: 1px solid #999;
+}
+
+#content-message
+{
+	width: 300px;
+	height: 100px;
+	padding: 3px 5px;
+}
+
+#auto-complete
+{
+	border: 1px solid #999;
+	float: left;
+	top: 0;
+	left: 0;
+	position: fixed;
+	padding: 2px;
+	display: none;
+	background: #fff;
+	vertical-align: top;
+}
+#auto-complete ul
+{
+	padding: 0;
+	margin: 0;
+}
+#auto-complete ul li
+{
+	margin: 1px;
+	background: #fff;
+	vertical-align: center;
+	list-style-type: none;
+	padding: 2px;
+	cursor: pointer;
+}
+#auto-complete ul li:not(:last-child)
+{
+	border-bottom: 1px solid #999;
+	padding: 1px;
+}
+#auto-complete ul li.selected
+{
+	background: #ddd;
+}
+#auto-complete img
+{
+	height: 25px;
+	width: 25px;
+}

@@ -1,0 +1,544 @@
+
+/* NAV MENU */
+nav.nav-menu
+{
+	z-index: 0;
+	width: 100%;
+	height: 70px;
+	top: 0;
+	left: 0;
+	position: fixed;
+	background: RGBA(50,80,150,1);
+}
+nav.nav-menu .menu-icons
+{
+	width: 400px;
+	margin: 10px 200px;
+}
+nav.nav-menu .menu-icons img
+{
+	height: 40px;
+	cursor: pointer;
+}
+.logo
+{
+	height: 50px;
+	width: 200px;
+	margin: 10px;
+}
+.menu-icons ul,
+.menu-icons ul li
+{
+	margin: 0;
+	padding: 0;
+}
+.menu-icons ul li
+{
+	display: inline-block;
+	vertical-align: top;
+	padding: 0px 5px;
+}
+.users-option img.users
+{
+	height: 40px;
+	cursor: pointer;
+}
+.users-option
+{
+	float: right;
+	margin: -50px 80px;
+}
+/* END OF NAV MENU */
+
+/* TABLES */
+.table-lists
+{
+	border-collapse: collapse;
+	margin: 10px auto;
+}
+.table-lists img
+{
+	width: 50px;
+}
+.table-lists tr
+{
+	border: 1px solid #f9f9f9;
+}
+
+.table-lists tr th
+{
+	padding: 5px 10px;
+	color: #f9f9f9;
+	font: 15px "Trebuchet MS",sans-serif;
+	font-weight: bold;
+	background: rgba(50,80,120,1);
+	border: 1px solid #999;
+	text-align: center;
+}
+.table-lists tr td
+{
+	background: rgba(50,70,120,0.9);
+	background-size: 400px 400px;
+	color: #f9f9f9;
+	font: 14px "Trebuchet MS",sans-serif;
+	padding: 5px 10px;
+	border: 1px solid #999;
+}
+.table-lists tr td div
+{
+	padding: 5px;
+}
+
+/* SECURITY ACTION */
+#security_input-BG
+{
+	width: 100%;
+	height: 100%;
+	background: RGBA(0,0,0,0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+.security_input-container
+{
+	background: #f9f9f9;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	width: 380px;
+	height: 90px;
+	margin: 8% auto;
+	overflow: hidden;
+	padding: 1px;
+	border: 1px solid transparent;
+}
+.security_input-header
+{
+	height: 30px;
+	background: RGBA(50,80,150,1);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	color: #fff;
+	border: 1px solid transparent;
+}
+.security_input-header button
+{
+	float: right;
+	margin: 3px;
+	background: none;
+	border: none;
+	color: #fff;
+}
+.security_input-header div
+{
+	margin: 5px;
+	font: 16px "Trebuchet MS",sans-serif;
+}
+.security_input-body
+{
+	padding: 10px;
+	font: 16px "Trebuchet MS",sans-serif;
+	font-weight: bold;
+}
+.security_input-body #txt_password
+{
+	padding: 13px;
+	margin: 2px;
+}
+/* END OF SECURITY ACTION */
+
+.search-container
+{
+	margin: 10px;
+	font: 20px "Trebuchet MS",sans-serif;
+	float: left;
+	color: #fff;
+}
+.search-container table tr td
+{
+	color: #fff;
+}
+.search-container input
+{
+	border-radius: 3px;
+	padding: 3px 5px;
+	border: 1px solid #999;
+}
+
+/* LOADING */
+.loading-BG
+{
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: RGBA(0,0,0,0.5);
+	position: fixed;
+	z-index: 999;
+}
+.loading-BG .container
+{
+	margin: 10% auto;
+	width: 300px;
+	height: 160px;
+	background: #f9f9f9;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding: 1px;
+}
+.loading-BG .container .header
+{
+	background: RGBA(50,80,150,1);
+	font: 16px "Trebuchet MS",sans-serif;
+	color: #fff;
+	text-indent: 10px;
+	height: 30px;
+}
+.loading-BG div img
+{
+	height: 140px;
+}
+/*END OF LOADING */
+
+/* PAGINATIONS */
+
+.pagination-buttons
+{
+	float: right;
+	margin-right: 5px;
+	z-index: 0;
+}
+.pagination-buttons button
+{
+	background: rgba(50,80,150,1);
+	border-radius: 3px;
+	border: 1px solid #999;
+	font: 16px "Trebuchet MS",sans-serif;
+	padding: 3px 6px;
+	margin: 1px;
+	color: #fff;
+	cursor: pointer;
+}
+.pagination-buttons button.active
+{
+	background: #000;
+	opacity: 0.8;
+	outline: none;
+	cursor: default;
+}
+.pagination-buttons button.inactive
+{
+	opacity: 0.8;
+	outline: none;
+	cursor: default;
+}
+
+
+
+.b_btn
+{
+	background-size: 100% 100%;
+	background-color: transparent;
+	border: none;
+	height: 25px;
+	width: 30px;
+	cursor: pointer;
+}
+
+button.md
+{
+	height: 35px;
+	width: 40px;
+}
+button.large
+{
+	height: 40px;
+	width: 45px;
+}
+
+/* BUTTONS */
+
+.btn-view{background-image:url('../../ICONS/view.png')}
+.btn-edit{background-image:url('../../ICONS/edit3.png')}
+.btn-new{background-image:url('../../ICONS/save.png')}
+.btn-save{background-image:url('../../ICONS/save.png')}
+.btn-refresh{background-image:url('../../ICONS/refresh.png')}
+.btn-generate{background-image:url('../../ICONS/generated.png')}
+.btn-check{background-image:url('../../ICONS/check.png')}
+.btn-close{background-image:url('../../ICONS/close.png'); float:right; margin: 5px; }
+.date-icon{background-image:url('../../ICONS/date.png'); width: 25px; height:25px;  background-size: 100% 100%;}
+.disabled{opacity: 0.5;cursor: default; outline: none;}
+
+/* MODALS */
+.frm-BG
+{
+	background: RGBA(0,0,0,0.8);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 1;
+}
+.frm-BG div.frm-container-sm
+{
+	margin: 30px auto;
+	display: none;
+	width: 700px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.frm-BG div.frm-container-medium
+{
+	margin: 30px auto;
+	display: none;
+	width: 900px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.frm-BG .header-title
+{
+	margin: 5px 10px;
+	color: #f9f9f9;
+	font: 20px "Trebuchet MS",sans-serif;
+	float: left;
+}
+.frm-BG .frm-body
+{
+	font: 14px "Trebuchet MS",sans-serif;
+	background: #f9f9f9;
+	border: 1px solid transparent;
+}
+.header
+{
+	width: 100%;
+	height: 35px;
+	background: RGBA(50,80,150,1);
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+}
+.frm-BG .frm-inputs 
+{
+	margin: 0px 10px;
+	padding: 10px;
+	max-height:550px;
+	overflow-y: scroll;
+}
+.frm-BG .frm-inputs table tr td
+{
+	padding: 2px 15px;
+	vertical-align: top;
+}
+.frm-BG .frm-inputs input[type='text']
+{
+	padding: 15px;
+}
+select.sm
+{
+	width: 60px;
+}
+select.m
+{
+	width: 80px;
+}
+select.large
+{
+	width: 100px;
+}
+.frm-BG .frm-inputs textarea
+{
+	width: 250px;
+	height: 80px;
+	resize: none;
+}
+.frm-BG .frm-inputs textarea.medium
+{
+	width: 250px;
+	height: 100px;
+}
+input.input_long
+{
+	width: 300px;
+}
+
+/*GUIDE CONTAINER*/
+
+div.guide-container
+{
+	width: 110px;
+	height: 40px;
+	position: fixed;
+	background: #fff;
+	border: 1px solid #999;
+	border-radius: 3px;
+	padding: 5px;
+	font: 12px "Trebucher MS",sans-serif;
+	text-align: center;
+    z-index: 99;
+}
+div.guide-container-bottom-left-arrow:before
+{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 14px;
+    border-color: #A0A0A0 transparent transparent transparent;
+    border-style: solid;
+    border-width: 10px;
+    width: 0;
+    height: 0;
+}
+div.guide-container-bottom-right-arrow:before
+{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 90px;
+    border-color: #fff transparent transparent transparent;
+    border-style: solid;
+    border-width: 10px;
+    width: 0;
+    height: 0;
+}
+div.guide-container-up-left-arrow:before
+{
+    content:'';
+    display:block;
+    position:absolute;
+    top:-20px;
+    left:15px;
+    width:0;
+    height:0;
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+    border-width: 10px;
+}
+div.guide-container-up-right-arrow:before
+{
+    content:'';
+    display:block;
+    position:absolute;
+    top:-20px;
+    left:80px;
+    width:0;
+    height:0;
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+    border-width: 10px;
+}
+/*END OF GUIDE CONTAINER*/
+
+
+/* MESSAGE */
+
+.message-BG
+{
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: RGBA(0,0,0,.5);
+	position: fixed;
+	z-index: 99999;
+}
+.message-BG .message-container
+{
+	width: 280px;
+	height: 110px;
+	background: #f9f9f9;
+	margin: 8% auto;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	overflow: hidden;
+}
+.message-BG .message-container .message-header
+{
+	background: RGBA(50,80,150,1);
+	height: 30px;
+	text-indent: 10px;
+	color: #fff;
+}
+.message-BG .message-container .message-header button
+{
+	float: right;
+	margin: 5px;
+	background: transparent;
+	border: 1px solid transparent;
+	color: #fff;
+}
+.message-container .message-content
+{
+	padding: 5px;
+	font: 14px "Trebuchet MS",sans-serif;
+}
+.message-container .message
+{
+	height: 50px;
+	overflow-y: scroll;
+}
+.message-content .message-buttons
+{
+	float: right;
+	margin: -10px 20px;
+}
+/* END OF MESSAGE */
+
+/* CONFIRMATION MESSAGE */
+
+.confirmation-BG
+{
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	background: RGBA(0,0,0,.5);
+	z-index: 99999;
+}
+.confirmation-BG .confirmation-container
+{
+	width: 320px;
+	background: #f9f9f9;
+	margin: 8% auto;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	overflow: hidden;
+	padding-bottom: 5px;
+}
+.confirmation-BG .confirmation-container .confirmation-header
+{
+	height: 30px;
+	background: RGBA(50,80,150,1);
+}
+.confirmation-header .close-confirmation-btn
+{
+	float: right;
+	margin: 5px;
+	background: transparent;
+	border: 1px solid transparent;
+	color: #fff;
+}
+.confirmation-content
+{
+	width: 310px;
+	height: 90px;
+	padding: 5px;
+	overflow-y: hidden;
+}
+.confirmation-message
+{
+	font: 14px "Trebuchet MS",sans-serif;
+	height: 60px;
+	overflow-y: scroll;
+}
+.confirmation-buttons
+{
+	float: right;
+	margin: 5px 10px;
+}
+.confirmation-buttons button
+{
+	width: 50px;
+	margin-right: 1px;
+}
+/* END OF CONFIRMATION MESSAGE */

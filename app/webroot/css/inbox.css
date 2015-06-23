@@ -1,0 +1,23 @@
+
+#inbox-container {
+	margin: 120px auto;
+	width: 100%;
+}
+#inbox-container table {
+	margin: 10px auto;
+}
+#inbox-container table h2 {
+	text-indent: 10px;
+}
+#inbox-container table tr {
+	cursor: pointer;
+}
+#inbox-container table tr td span {
+	margin-left: 10px;
+}
+#inbox-container img {
+	width: 20px;
+}
+#btn-delete {
+	float: right;
+}

@@ -1,0 +1,23 @@
+
+#login-frm
+{
+	margin: 50px auto;
+	background-color: #f9f9f9;
+	padding: 30px 20px;
+	width: 500px;
+	font: 14px "Trebuchet MS",sans-serif;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+#login-frm table
+{
+	margin: 10px auto;
+}
+#login-frm tr td
+{
+	padding: 5px;
+}
+#login-frm input
+{
+	width: 300px;
+}

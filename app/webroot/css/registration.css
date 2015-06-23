@@ -1,0 +1,29 @@
+
+
+#registration-container
+{
+	width: 700px;
+	margin: 50px auto;
+	background: #f9f9f9;
+	padding: 40px;
+}
+#registration-container table
+{
+	margin: 20px auto;
+}
+#registration-container table tr td
+{
+	padding: 5px 10px;
+}
+#registration-container input
+{
+	width: 250px;
+}
+#registration-container table span
+{
+	color: red;
+}
+#registration-container table span img
+{
+	width: 15px;
+}

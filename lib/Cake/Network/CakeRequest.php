@@ -106,7 +106,7 @@ class CakeRequest implements ArrayAccess {
 		'ajax' => array('env' => 'HTTP_X_REQUESTED_WITH', 'value' => 'XMLHttpRequest'),
 		'flash' => array('env' => 'HTTP_USER_AGENT', 'pattern' => '/^(Shockwave|Adobe) Flash/'),
 		'mobile' => array('env' => 'HTTP_USER_AGENT', 'options' => array(
-			'Android', 'AvantGo', 'BB10', 'BlackBerry', 'DoCoMo', 'Fennec', 'iPod', 'iPhone', 'iPad',
+			'Android', 'AvantGo', 'BlackBerry', 'DoCoMo', 'Fennec', 'iPod', 'iPhone', 'iPad',
 			'J2ME', 'MIDP', 'NetFront', 'Nokia', 'Opera Mini', 'Opera Mobi', 'PalmOS', 'PalmSource',
 			'portalmmm', 'Plucker', 'ReqwirelessWeb', 'SonyEricsson', 'Symbian', 'UP\\.Browser',
 			'webOS', 'Windows CE', 'Windows Phone OS', 'Xiino'
@@ -162,7 +162,8 @@ class CakeRequest implements ArrayAccess {
 	protected function _processPost() {
 		if ($_POST) {
 			$this->data = $_POST;
-		} elseif (($this->is('put') || $this->is('delete')) &&
+		} elseif (
+			($this->is('put') || $this->is('delete')) &&
 			strpos(env('CONTENT_TYPE'), 'application/x-www-form-urlencoded') === 0
 		) {
 				$data = $this->_readInput();
@@ -260,7 +261,8 @@ class CakeRequest implements ArrayAccess {
 		}
 		$endsWithIndex = '/webroot/index.php';
 		$endsWithLength = strlen($endsWithIndex);
-		if (strlen($uri) >= $endsWithLength &&
+		if (
+			strlen($uri) >= $endsWithLength &&
 			substr($uri, -$endsWithLength) === $endsWithIndex
 		) {
 			$uri = '/';
@@ -758,11 +760,11 @@ class CakeRequest implements ArrayAccess {
  *
  * Get the list of accepted languages:
  *
- * ``` CakeRequest::acceptLanguage(); ```
+ * {{{ CakeRequest::acceptLanguage(); }}}
  *
  * Check if a specific language is accepted:
  *
- * ``` CakeRequest::acceptLanguage('es-es'); ```
+ * {{{ CakeRequest::acceptLanguage('es-es'); }}}
  *
  * @param string $language The language to test.
  * @return mixed If a $language is provided, a boolean. Otherwise the array of accepted languages.
@@ -872,13 +874,8 @@ class CakeRequest implements ArrayAccess {
  *   return false if the parameter doesn't exist or is falsey.
  */
 	public function param($name) {
-		$args = func_get_args();
-		if (count($args) === 2) {
-			$this->params = Hash::insert($this->params, $name, $args[1]);
-			return $this;
-		}
 		if (!isset($this->params[$name])) {
-			return Hash::get($this->params, $name, false);
+			return false;
 		}
 		return $this->params[$name];
 	}
@@ -911,17 +908,6 @@ class CakeRequest implements ArrayAccess {
 			return call_user_func_array($callback, $args);
 		}
 		return $input;
-	}
-
-/**
- * Modify data originally from `php://input`. Useful for altering json/xml data
- * in middleware or DispatcherFilters before it gets to RequestHandlerComponent
- *
- * @param string $input A string to replace original parsed data from input()
- * @return void
- */
-	public function setInput($input) {
-		$this->_input = $input;
 	}
 
 /**
@@ -963,7 +949,7 @@ class CakeRequest implements ArrayAccess {
  * @return bool true
  * @throws MethodNotAllowedException
  * @see CakeRequest::allowMethod()
- * @deprecated 3.0.0 Since 2.5, use CakeRequest::allowMethod() instead.
+ * @deprecated 2.5 Use CakeRequest::allowMethod() instead.
  */
 	public function onlyAllow($methods) {
 		if (!is_array($methods)) {
