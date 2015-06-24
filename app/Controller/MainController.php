@@ -42,6 +42,9 @@
 
 		public function index() {
 
+
+			 $this->loadModel('User');
+
 			if (!$this->Session->read("usersid")) {
 
 				$this->redirect(array(
@@ -50,7 +53,37 @@
 								)
 							);
 			} else {
-			}
+
+
+			
+
+
+
+   				}
+
+
+			//     if ($this->request->is('post')) {
+			        
+			//     }
+			//     else
+			//     {
+			//     	  $this->set('messages',$this->User->find('all', 
+			// 	 		 array(
+			// 	       'fields' => array('DISTINCT messages.to_id', 'users.name','users.id','users.modified_ip'),
+			// 	       'joins' => array(array('table' => 'users',
+			// 	                               'alias' => 'userst',
+			// 	                               'type' => 'INNER',
+			// 	                               'conditions' => array('users.id = messages.to_id','messages.from_id' => $usId,'messages.to_id !=' => $usId),
+			// 	                               'order' =>array('messages.to_id DESC')
+			// 	                         ))
+			// 	         )
+			// 	  ));
+			//     }
+
+
+
+
+			// }
 
 		}
 

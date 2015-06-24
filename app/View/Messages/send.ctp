@@ -145,7 +145,7 @@
            <th>IP Address</th>
         </tr>
               <?php
-               //  var_dump($messages);
+              //   var_dump($messages);
 
                  $tempCount=1;
                  foreach($messages as $message)
@@ -158,9 +158,7 @@
 
                     <td>
                       <?php
-                          echo $this->Html->link($userName,array(
-                            'class' => 'btn btn-primary'
-                          )
+                          echo $this->Html->link($userName,array('controller' => 'messages', 'action' => 'getMessage', $message['users']['id'])
                         );
                       ?>
                     </td>
