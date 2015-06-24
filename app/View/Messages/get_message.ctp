@@ -63,7 +63,7 @@
 
 		.bubble {
 		  background-color: silver;
-		  width: 70%;
+		  width: 80%;
 		  padding: 20px;
 		  margin: 20px;
 		  font-size: 12px;
@@ -72,7 +72,7 @@
 		}
 		.bubble2 {
 		  background-color: silver;
-		  width: 70%;
+		  width: 80%;
 		  padding: 20px;
 		  margin: 20px;
 		  font-size: 12px;
