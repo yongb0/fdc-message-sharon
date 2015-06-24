@@ -143,9 +143,10 @@
            <th>Contact Name</th>
            <th></th>
            <th>IP Address</th>
+           <th></th>
         </tr>
               <?php
-              //   var_dump($messages);
+                 echo $usid;
 
                  $tempCount=1;
                  foreach($messages as $message)
@@ -169,7 +170,16 @@
                             echo $userName;
                           ?>
                        </td>
-                   </tr> 
+                       <td>
+                        <?php
+                                 echo $this->Html->link(
+                                  $this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-trash')),
+                                  array('controller' => 'messages','action' => 'deleteConversation',$message['users']['id']),
+                                  array('class' => 'btn btn-mini', 'escape' => false)
+                              );
+                        ?>
+                       </td>
+                   </tr>  
 
                   
                 <?php

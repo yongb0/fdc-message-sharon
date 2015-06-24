@@ -96,6 +96,7 @@
 
 
 			    }
+			    $this->set('usid',$usId);
 			}
 
 
@@ -152,6 +153,35 @@
 							);
 
 			//	$this->set('id',$messageId);
+
+			}
+			function deleteConversation()
+			{
+				$userid_from = $this->Session->read('usersid');
+				$id = $this->params['pass']; 
+				$other_user = $id[0];
+
+
+			//	$this->Message->deleteAll(array('Message.id' => $messageId));
+
+
+				$conditions = array(
+				    'OR' => array(
+				        'Message.to_id' => $userid_from,
+				        'Message.to_id'=> $other_user,
+				        'Message.from_id' => $userid_from,
+				        'Message.from_id'=> $other_user
+				    )
+				);
+
+				$this->Message->deleteAll($conditions);
+
+				$this->redirect(array(
+							'controller' => 'messages',
+							'action' => 'send'
+								)
+							);
+
 
 			}
 
