@@ -36,7 +36,8 @@
 			</td><td>
 				<?php echo $this->Form->input('Password',array(
 									'name' => 'password',
-									'class' => 'form-control'
+									'class' => 'form-control',
+									'type' => 'password'
 								)); 
 				?>
 			</td>
@@ -47,7 +48,7 @@
 				<center>
 					<?php echo $this->Form->button('Sign in',array('id' => 'btn_login','class' => 'btn btn-primary')); 
 					?>
-					<?php echo $this->Html->link('Register','registration',array('class' => 'btn btn-success')); 
+					<?php echo '<br />'.$this->Html->link('Register','registration'); 
 					?>
 				</center>
 			</td>

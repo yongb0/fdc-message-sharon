@@ -31,15 +31,17 @@
             
             success: function(data){
 
+
+            	console.log(data);
                   $('#divSearch').empty();
              //    var obj = jQuery.parseJSON(data);
 
               
-             var obj = jQuery.parseJSON(data);
+         //    var obj = jQuery.parseJSON(data);
 
-             $.each(obj, function(key, val){ 
+             $.each(data, function(key, val){ 
 
-                console.log(obj);
+            //    console.log(obj);
                
 
                 var name2 = "'"+val.name+"'";
@@ -127,13 +129,56 @@
 			<tbody>
 				<tr>
 					<td colspan=4>  </td>
-                    <td>
+                    <td colspan='2'>
                        <h2> My Messages </h2>
                     <button type="button" alass="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">+New Message</button>
 
                 </td>
+       
 
 				</tr>
+        <tr>
+           <td colspan=5>  </td>
+           <th>#</th>
+           <th>Contact Name</th>
+           <th></th>
+           <th>IP Address</th>
+        </tr>
+              <?php
+               //  var_dump($messages);
+
+                 $tempCount=1;
+                 foreach($messages as $message)
+                 {
+                   $userName = $message['users']['name'];
+                  ?>
+                  <tr>
+                    <td colspan=5>  </td>
+                    <td><?php echo $tempCount++; ?></td>
+
+                    <td>
+                      <?php
+                          echo $this->Html->link($userName,array(
+                            'class' => 'btn btn-primary'
+                          )
+                        );
+                      ?>
+                    </td>
+                       <td></td>
+                       <td>
+                          <?php 
+                            $userName = $message['users']['modified_ip'];
+                            echo $userName;
+                          ?>
+                       </td>
+                   </tr> 
+
+                  
+                <?php
+                 }
+
+              ?>
+        
 			</tbody>
 		</table>
 	</div>

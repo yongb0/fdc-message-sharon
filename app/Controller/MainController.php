@@ -384,9 +384,13 @@
 
 			 $rs=$this->User->find('first', array('conditions' => array('User.name LIKE' => "$r%")));
 
+
 			// $rs = $this->User->find('all', array('conditions'=>array('User.name LIKE'=>'$r%')));
 		//	$unserializedData =  unserialize($rs);
 			echo json_encode($rs);
 		}
+
+
+		
 
 	}

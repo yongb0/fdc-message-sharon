@@ -31,15 +31,17 @@
             
             success: function(data){
 
+
+            	console.log(data);
                   $('#divSearch').empty();
              //    var obj = jQuery.parseJSON(data);
 
               
-             var obj = jQuery.parseJSON(data);
+         //    var obj = jQuery.parseJSON(data);
 
-             $.each(obj, function(key, val){ 
+             $.each(data, function(key, val){ 
 
-                console.log(obj);
+            //    console.log(obj);
                
 
                 var name2 = "'"+val.name+"'";
