@@ -22,10 +22,10 @@
                 	</li>
 
                 	<li>
-                        <?php echo $this->Html->link('Hi '.$this->Session->read('usersid').'!', array('controller' => 'main', 'action' => 'profile')); ?>
+                        <?php echo $this->Html->link('Hi '.strtoupper($sessname[0]['users']['name']).'!', array('controller' => 'main', 'action' => 'profile')); ?>
                     </li>
                     <li>
-                        <?php echo $this->Html->link( "Messages",   array('controller' => 'users','action'=>'add'),array('escape' => false) ); ?>
+                        <?php echo $this->Html->link( "Messages",   array('controller' => 'messages','action'=>'send'),array('escape' => false) ); ?>
                     </li>
                     <li>
                         <?php  echo $this->Html->link( "Logout",   array('controller' => 'main', 'action'=>'logout') ); ?>

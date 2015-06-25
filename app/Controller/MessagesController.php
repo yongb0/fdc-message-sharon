@@ -46,57 +46,105 @@
 		public function send() {
 
    				$usId = $this->Session->read('usersid');
+   				$userid_from =  $this->Session->read('usersid');
 
 
+   				if (!$this->Session->read("usersid")) {
 
+				$this->redirect(array(
+							'controller' => 'main',
+							'action' => 'login'
+								)
+							);
+				}
    				
+				else
+				{
 
+						    if ($this->request->is('post')) {
+						        // If the form data can be validated and saved...
+						        if ($this->Message->save($this->request->data)) {
+						            // Set a session flash message and redirect.
+						          //  $this->Shttp://message.localhost/messages/send#ession->setFlash('Message Sent');
 
-			    if ($this->request->is('post')) {
-			        // If the form data can be validated and saved...
-			        if ($this->Message->save($this->request->data)) {
-			            // Set a session flash message and redirect.
-			            $this->Session->setFlash('Message Sent');
+						            $this->set('messages',$this->Message->find('all', 
+							 		 array(
+							       'fields' => array('DISTINCT Message.to_id','users.name','users.id','users.modified_ip'),
+							       'joins' => array(array('table' => 'users',
+							                               'alias' => 'users',
+							                               'type' => 'INNER',
+							                               'conditions' => array('users.id = Message.to_id','Message.from_id' => $usId,'Message.to_id !=' => $usId),
+							                               'order' =>array('Message.to_id DESC')
+							                         ))
+							         )
+							  ));
 
-			            $this->set('messages',$this->Message->find('all', 
-				 		 array(
-				       'fields' => array('DISTINCT Message.to_id','users.name','users.id','users.modified_ip'),
-				       'joins' => array(array('table' => 'users',
+						           $queryfind = $this->Message->find('all', 
+								 		 array(
+								       'fields' => array('DISTINCT users.id','users.name','users.email'),
+								       'joins' => array(array('table' => 'users',
 				                               'alias' => 'users',
 				                               'type' => 'INNER',
-				                               'conditions' => array('users.id = Message.to_id','Message.from_id' => $usId,'Message.to_id !=' => $usId),
-				                               'order' =>array('Message.to_id DESC')
+				                               'conditions' => array('users.id !=' => $userid_from,
+				                               'order by' => 'users.id asc')
+				                         ))
+									         )
+									  ); 
+						           $this->set('userInfo',$queryfind);
+						           $this->set(compact('queryfind'));	
+
+
+						        //    $this->set('')
+						       //      $this->redirect(array(
+													// 	'controller' => 'main',
+													// 	'action' => 'index'
+													// ));
+
+						            //return $this->redirect('/recipes');
+						        }
+						    }
+						    else
+						    {
+						    	  $this->set('messages',$this->Message->find('all', 
+							 		 array(
+							       'fields' => array('DISTINCT Message.to_id', 'users.name','users.id','users.modified_ip'),
+							       'joins' => array(array('table' => 'users',
+							                               'alias' => 'users',
+							                               'type' => 'INNER',
+							                               'conditions' => array('users.id = Message.to_id','Message.from_id' => $usId,'Message.to_id !=' => $usId),
+							                               'order' =>array('Message.to_id DESC')
+							                         ))
+							         )
+							  ));
+						    	  	 $queryfind = $this->Message->find('all', 
+								 		 array(
+								       'fields' => array('DISTINCT users.id','users.name','users.email'),
+								       'joins' => array(array('table' => 'users',
+				                               'alias' => 'users',
+				                               'type' => 'INNER',
+				                               'conditions' => array('users.id !=' => $userid_from),
+				                               'order' => array('users.id DESC')
+				                         ))
+									         )
+									  );
+						    	  	 $this->set('userInfo',$queryfind);
+						    	  	 $this->set(compact('queryfind'));	
+
+
+						    }
+						    $this->set('usid',$usId);
+						    $userid_from = $this->Session->read('usersid');
+							$this->set('sessname',$this->Message->find('all', 
+					 		 array(
+					       'fields' => array('users.name','users.id'),
+					       'joins' => array(array('table' => 'users',
+				                               'alias' => 'users',
+				                               'type' => 'INNER',
+				                               'conditions' => array('users.id' => $userid_from)
 				                         ))
 				         )
 				  ));
-
-			        //    $this->set('')
-			       //      $this->redirect(array(
-										// 	'controller' => 'main',
-										// 	'action' => 'index'
-										// ));
-
-			            //return $this->redirect('/recipes');
-			        }
-			    }
-			    else
-			    {
-			    	  $this->set('messages',$this->Message->find('all', 
-				 		 array(
-				       'fields' => array('DISTINCT Message.to_id', 'users.name','users.id','users.modified_ip'),
-				       'joins' => array(array('table' => 'users',
-				                               'alias' => 'users',
-				                               'type' => 'INNER',
-				                               'conditions' => array('users.id = Message.to_id','Message.from_id' => $usId,'Message.to_id !=' => $usId),
-				                               'order' =>array('Message.to_id DESC')
-				                         ))
-				         )
-				  ));
-
-
-
-			    }
-			    $this->set('usid',$usId);
+						}
 			}
 
 
@@ -115,6 +163,16 @@
 				$this->set('userid_to',$userid_to);
 			//	$this->set('username', $this->User->findById($id));
 
+				$this->set('sessname',$this->Message->find('all', 
+				 		 array(
+				       'fields' => array('users.name','users.id'),
+				       'joins' => array(array('table' => 'users',
+				                               'alias' => 'users',
+				                               'type' => 'INNER',
+				                               'conditions' => array('users.id' => $userid_from)
+				                         ))
+				         )
+				  ));
 
 
 				$this->set('username',$this->Message->find('all', 
@@ -130,29 +188,46 @@
 				  ));
 
 
+
+				 $this->paginate = array('conditions' => array('from_id' => array($userid_to,$userid_from),'to_id' => array($userid_to,$userid_from)),
+			        'limit' => 3,
+			        'order' => array('modified' => 'asc')
+			    );
+			     
+			    // we are using the 'User' model
+			    $users = $this->paginate('Message');
+			     
+			    // pass the value to our view.ctp
+			    $this->set('users', $users);
+
+
 			}
 
 			function deleteMessage()
 			{
 				$userid_from = $this->Session->read('usersid');
-				$id = $this->params['pass']; 
-				$messageIdimp = $id[0];
+				// $id = $this->params['pass']; 
+				// $messageIdimp = $id[0];
 
-				$explodeIds = explode('-', $messageIdimp);
-				$messageId = $explodeIds[1];
-				$to_id = $explodeIds[0];
+				// $explodeIds = explode('-', $messageIdimp);
+				// $messageId = $explodeIds[1];
+				// $to_id = $explodeIds[0];
+
+
+				$to_id= $_POST['userid'];
+				$messageId= $_POST['messageid'];
 
 
 				$this->Message->deleteAll(array('Message.id' => $messageId));
 
 
-				$this->redirect(array(
-							'controller' => 'messages',
-							'action' => 'getMessage/'.$to_id
-								)
-							);
+				echo json_encode('Message Deleted');
 
-			//	$this->set('id',$messageId);
+				// $this->redirect(array(
+				// 			'controller' => 'messages',
+				// 			'action' => 'getMessage/'.$to_id
+				// 				)
+				// 			);
 
 			}
 			function deleteConversation()

@@ -1,14 +1,43 @@
- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 
 <head>
-        <link rel="stylesheet" type="css/text" href="test.css"/>
-        <script type="text/javascript" src="test.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
         <script type="text/javascript">
+
+        $("#e1").select2();
+        $( document ).ready(function() {
+        var itemsCount = 0,
+            itemsMax = $('.outer div').length;
+            $('.outer div').hide();
+
+            function showNextItems() {
+                var pagination = 2;
+                
+                for (var i = itemsCount; i < (itemsCount + pagination); i++) {
+                    $('.outer div:eq(' + i + ')').show();
+                }
+
+                itemsCount += pagination;
+                
+                if (itemsCount > itemsMax) {
+                    $('#showMore').hide();
+                }
+            };
+
+            showNextItems();
+
+            $('#showMore').on('click', function (e) {
+                e.preventDefault();
+                showNextItems();
+            });
+
+     })
           function search()
           {
 
@@ -32,28 +61,22 @@
             success: function(data){
 
 
-            	console.log(data);
+           
                   $('#divSearch').empty();
-             //    var obj = jQuery.parseJSON(data);
+                 var obj = jQuery.parseJSON(data);
 
               
          //    var obj = jQuery.parseJSON(data);
+            console.log(obj);
+             $.each(obj, function(key, val){ 
 
-             $.each(data, function(key, val){ 
-
-            //    console.log(obj);
-               
 
                 var name2 = "'"+val.name+"'";
                 var id2 = "'"+val.id+"'";
                 var name = val.name;
                 var email = val.email;
                 var num =1;
-               // var id = val.id;
-              //  var hubby = val.hubby;
-
-              //  console.log(name+'|'+email);
-
+          
                 $('#divSearch').append('<li style="float:left;list-style-position:inside;" onclick="a('+name2+','+id2+');">'+name+' - '+email+'</li>');
 
              });
@@ -99,16 +122,16 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                	<li>
-                		Welcome <?php print $this->Session->read('Auth.User.username'); ?>
-                	</li>
+               <ul class="nav navbar-nav navbar-right">
+                  <li>
+                     <?php print $this->Session->read('Auth.User.username'); ?>
+                  </li>
 
-                	<li>
-                        <?php echo $this->Html->link('Hi '.$this->Session->read('Auth.User.username').'!', array('controller' => 'main', 'action' => 'profile')); ?>
+                  <li>
+                        <?php echo $this->Html->link('Hi '.strtoupper($sessname[0]['users']['name']).'!', array('controller' => 'main', 'action' => 'profile')); ?>
                     </li>
                     <li>
-                        <?php echo $this->Html->link( "Messages",   array('controller' => 'users','action'=>'add'),array('escape' => false) ); ?>
+                        <?php echo $this->Html->link( "Messages",   array('controller' => 'messages','action'=>'send'),array('escape' => false) ); ?>
                     </li>
                     <li>
                         <?php  echo $this->Html->link( "Logout",   array('controller' => 'main', 'action'=>'logout') ); ?>
@@ -123,6 +146,10 @@
     </nav>
 
 <br /><br /><br /><br />
+
+
+ 
+
 <div id="inbox-container">
 	<div>
 		<table class="table table-striped table-hover" id="table-inbox" style="width: 80%">
@@ -153,7 +180,9 @@
                  {
                    $userName = $message['users']['name'];
                   ?>
+                  
                   <tr>
+                    <div class = "outer" >
                     <td colspan=5>  </td>
                     <td><?php echo $tempCount++; ?></td>
 
@@ -178,8 +207,9 @@
                                   array('class' => 'btn btn-mini', 'escape' => false)
                               );
                         ?>
-                       </td>
+                       </td></div>
                    </tr>  
+                 
 
                   
                 <?php
@@ -205,6 +235,9 @@
         <h4 class="modal-title" id="exampleModalLabel">New message</h4>
       </div>
       <div class="modal-body">
+        <?php
+            var_dump($userInfo);
+        ?>
         <?php echo $this->Form->create('messages',array('controller' => 'messages','action' => 'send')); ?>
           <div class="form-group">
             <label for="recipient-name" class="control-label">Recipient:</label>
@@ -215,7 +248,21 @@
                         'onkeyup' => 'search()'
                       )
                     );
+
+
+
+                  //   echo $this->Form->input('Search', array(
+                  //   'type'    => 'select',
+                  //   'options' => $queryfind,
+                  //   'empty'   => false,
+                  //   'id' => 'select2',
+                  //   'name' => 'to_id'
+                  // ));
+
                     ?>
+
+
+
              <?php echo $this->Form->input(' ',array(
                         'name' => 'to_id',
                         'id' => 'to_id',
@@ -258,4 +305,39 @@
     </div>
   </div>
 </div>
+
+ <html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+
+  <!-- stylesheets -->
+  
+        
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+  <style type="text/css">
+  body {
+    padding: 40px;
+  }
+  </style>
+
+  <!-- scripts -->
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+  <script>
+    $(function(){
+      // turn the element to select2 select style
+      $('#select2').select2();
+    });
+  </script>
+</head>
+
+<body>
+
+
+
+  
+
+</html>
+
 

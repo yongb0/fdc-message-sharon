@@ -55,7 +55,11 @@
 			} else {
 
 
-			
+				$this->redirect(array(
+							'controller' => 'messages',
+							'action' => 'send'
+								)
+							);
 
 
 
@@ -165,6 +169,8 @@
 		}
 
 		public function profile($email = '') {
+
+			$userid_from = $this->Session->read('usersid');
 			
 			if ($this->Session->read('usersid')) {
 				$this->loadModel('User');
@@ -180,6 +186,20 @@
 				$profile->last_login_time = $monthCreated . " " . (int)substr($profile->last_login_time,8,2) . ", " . substr($profile->last_login_time,0,4);
 				$this->set('profile',$profile);
 				$this->set('sessname',$this->Session->read('Auth.User.name'));
+
+
+				
+				$this->set('sessname',$this->User->find('all', 
+				 		 array(
+				       'fields' => array('users.name','users.id'),
+				       'joins' => array(array('table' => 'users',
+				                               'alias' => 'users',
+				                               'type' => 'INNER',
+				                               'conditions' => array('users.id' => $userid_from)
+				                         ))
+				         )
+				  ));
+
 			} else {
 				$this->redirect(array(
 							'controller' => 'main',

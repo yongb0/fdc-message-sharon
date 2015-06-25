@@ -28,15 +28,15 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                	<li>
-                		Welcome <?php print $this->Session->read('Auth.User.username'); ?>
-                	</li>
+                  <li>
+                     <?php print $this->Session->read('Auth.User.username'); ?>
+                  </li>
 
-                	<li>
-                        <?php echo $this->Html->link('Hi '.$this->Session->read('Auth.User.username').'!', array('controller' => 'main', 'action' => 'profile')); ?>
+                  <li>
+                        <?php echo $this->Html->link('Hi '.strtoupper($sessname[0]['users']['name']).'!', array('controller' => 'main', 'action' => 'profile')); ?>
                     </li>
                     <li>
-                        <?php echo $this->Html->link( "Messages",   array('controller' => 'users','action'=>'add'),array('escape' => false) ); ?>
+                        <?php echo $this->Html->link( "Messages",   array('controller' => 'messages','action'=>'send'),array('escape' => false) ); ?>
                     </li>
                     <li>
                         <?php  echo $this->Html->link( "Logout",   array('controller' => 'main', 'action'=>'logout') ); ?>
@@ -53,111 +53,205 @@
 <br /><br /><br /><br />
 <?php
 
-	//echo "sharon";
-	//echo $id;
-	//var_dump($messageList);
+  //echo "sharon";
+  //echo $id;
+  //var_dump($messageList);
 ?>
 <head>
-	<style>
-	
+  <style>
 
-		.bubble {
-		  background-color: silver;
-		  width: 80%;
-		  padding: 20px;
-		  margin: 20px;
-		  font-size: 12px;
-		  border-radius: 10px;
-		  float:right;
-		}
-		.bubble2 {
-		  background-color: silver;
-		  width: 80%;
-		  padding: 20px;
-		  margin: 20px;
-		  font-size: 12px;
-		  border-radius: 10px;
-		  float:left;
-		}
-	</style>
+
+  
+
+    #child {
+      background-color: silver;
+      width: 70%;
+      padding: 20px;
+      margin: 10px;
+      font-size: 12px;
+      border-radius: 10px;
+      float:right;
+      font-family: 'Schoolbell', arial, serif;
+          
+    }
+         #child:after {
+                content: '';
+                top: 1px;
+                left: -310px;
+                border: 0px solid;
+                display: block;
+                width: 430px;
+                 height: 26px;
+                background-color: transparent;
+                border-bottom-left-radius: 50%;
+                border-bottom-right-radius: 50%;
+                box-shadow: -11px 9px 0px 8px silver;
+            }
+    #child2 {
+      background-color: silver;
+      width: 70%;
+      padding: 20px;
+      margin: 10px;
+      font-size: 12px;
+      border-radius: 10px;
+      float:left;
+      font-family: 'Schoolbell', arial, serif;
+    }
+        #child2:after {
+                content: '';
+                top: 1px;
+                right: -410px;
+                border: 0px solid;
+                display: block;
+                width: 400px;
+                 height: 16px;
+                background-color: transparent;
+                border-bottom-left-radius: 50%;
+                border-bottom-right-radius: 50%;
+                box-shadow: 11px 9px 0px 8px silver;
+            }
+  </style>
+
+     <script type="text/javascript">
+     $( document ).ready(function() {
+        var itemsCount = 0,
+            itemsMax = $('.outer div').length;
+            $('.outer div').hide();
+
+            function showNextItems() {
+                var pagination = 4;
+                
+                for (var i = itemsCount; i < (itemsCount + pagination); i++) {
+                    $('.outer div:eq(' + i + ')').show();
+                }
+
+                itemsCount += pagination;
+                
+                if (itemsCount > itemsMax) {
+                    $('#showMore').hide();
+                }
+            };
+
+showNextItems();
+
+$('#showMore').on('click', function (e) {
+    e.preventDefault();
+    showNextItems();
+});
+
+     })
+    
+
+    function deleteMessage(implodeIds)
+          {
+            var imp = implodeIds.split('-');
+            var userid = imp[0];
+            var messageid = imp[1];
+
+            $.ajax({
+            type: "POST",
+            url: '/messages/deleteMessage',
+            data: {
+             userid : userid,
+             messageid : messageid
+              }, 
+            
+            success: function(data){
+
+
+                alert('Message Deleted');
+
+
+                window.location.href = '/messages/getMessage/'+userid;
+              
+               
+            },
+            error: function(data){
+            //cannot connect to server
+        }
+       });
+
+          }
+          </script>
 </head>
+
+
 <body>
-	<?php
-		  $me = $userid;
-			
+  <?php
+      $me = $userid;
+      
 
-			  echo $this->Html->link('<< BACK',array(
-				  									'controller' => 'messages','action' => 'send'
-					  							)
-					  						);
+       
 
-	?>
+        echo $this->Html->link("BACK", array('controller' => 'messages','action'=> 'send'), array( 'class' => 'btn btn-primary'))
 
-
- 	
-	<center>
-	<table style='width:80%'>
+  ?>
 
 
-			<?php
-			//var_dump($username);
-			$idUser = $username[0]['users']['id'];
-			echo '<b>'.strtoupper($username[0]['users']['name']).'</b>&nbsp;&nbsp;&nbsp;&nbsp;';?>
-			<button type="button" alass="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">+New Message</button>
-			<?php
-		//	var_dump($username);
-			  foreach($messageList as $message)
+
+  
+  <center>
+  <table style='width:80%'>
+
+
+      <?php
+    //  var_dump($sessname);
+         //   echo $userid.'|'.$userid_to;
+      //echo $sessname;
+      $idUser = $username[0]['users']['id'];
+      echo '<b>'.strtoupper($username[0]['users']['name']).'</b>&nbsp;&nbsp;&nbsp;&nbsp;';?>
+      <button type="button" alass="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">+New Message</button>
+      <?php
+    //  var_dump($username);
+        foreach($messageList as $message)
                  {
-                 	$from_id = $message['Message']['from_id'];
-                 	$to_id = $message['Message']['to_id'];
-                 	$content = $message['Message']['content'];
-                 	$modified = $message['Message']['modified'];
-                 	$messageId = $message['Message']['id'];
+                  $from_id = $message['Message']['from_id'];
+                  $to_id = $message['Message']['to_id'];
+                  $content = $message['Message']['content'];
+                  $modified = $message['Message']['modified'];
+                  $messageId = $message['Message']['id'];
 
-                 	if($from_id == $me)
-                 	{
-                 		$bubbleCss = 'bubble';
-                 	}
-                 	else
-                 		$bubbleCss = 'bubble2';
-
-
-                 	?>
-                 	<tr>
-                 		<td colspan='30' class="<?php echo $bubbleCss; ?>">
-                 			 <?php
-					    	echo '<font>'.$content.'</font>';
-
-					     ?>
-					     <br />
-					     <?php
-					     	echo '~'.$modified;
+                  if($from_id == $me)
+                  {
+                    $bubbleCss = 'child';
+                  }
+                  else
+                    $bubbleCss = 'child2';
 
 
-					    // 	$implodeParam = implode('-', $messageId)
+                  ?>
+                  <tr>
+                        <div class = "outer" >
+                          <div class="child" id="<?php echo $bubbleCss;?>"> 
 
-					     	 echo $this->Html->link(
-						    $this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-trash')),
-						    array('controller' => 'messages','action' => 'deleteMessage', $idUser.'-'.$messageId),
-						    array('class' => 'btn btn-mini', 'escape' => false)
-						);
+                            <?php
+                            echo '<b><font>'.$content.'</font></b>'."<br>".'~'.$modified;
+                            //echo "<td colspan='30' class='$bubbleCss'>".'<font>'.$content.'</font>'."<br>".'~'.$modified."</td>";
+
+                         ?>
+                           <a href='#' onclick="deleteMessage('<?php echo $idUser.'-'.$messageId; ?>')"><span class="glyphicon glyphicon-trash"></span></a>
+                  
+                        </div>
+                         
+                       
+                        <br/>
+                       
+
+                    
+                         </div>
 
 
-					     ?>
-					    
-                 		</td>
+                  </tr> 
 
+                  <?php
+                    }
+                  ?>    
 
-                 	</tr>	
+        
+  </table>  
+     <a href="#" id="showMore"><b><u>SEE MORE</u></b></a>
 
-                 	<?php
-                 		}
-                 	?>		
-
-				
-	</table>	
-
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -167,7 +261,7 @@
       <div class="modal-body">
         <?php echo $this->Form->create('messages',array('controller' => 'messages','action' => 'addMessage')); ?>
           <div class="form-group">
-           	<input type='hidden' name='hideId' id='hideId' value='<?php echo $idUser; ?>'>	
+            <input type='hidden' name='hideId' id='hideId' value='<?php echo $idUser; ?>'>  
              <?php echo $this->Form->input(' ',array(
                         'name' => 'to_id',
                         'id' => 'to_id',
