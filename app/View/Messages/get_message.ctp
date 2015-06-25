@@ -119,7 +119,7 @@
             $('.outer div').hide();
 
             function showNextItems() {
-                var pagination = 6;
+                var pagination = 4;
                 
                 for (var i = itemsCount; i < (itemsCount + pagination); i++) {
                     $('.outer div:eq(' + i + ')').show();
