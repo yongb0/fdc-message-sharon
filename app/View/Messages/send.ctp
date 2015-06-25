@@ -66,18 +66,19 @@
                  var obj = jQuery.parseJSON(data);
 
               
-         //    var obj = jQuery.parseJSON(data);
-            console.log(obj);
+        
+            console.log(data);
              $.each(obj, function(key, val){ 
 
 
-                var name2 = "'"+val.name+"'";
-                var id2 = "'"+val.id+"'";
-                var name = val.name;
-                var email = val.email;
+                var name2 = "'"+key+"'";
+                var id2 = "'"+val+"'";
+                var name = key;
+                var email = val;
                 var num =1;
           
-                $('#divSearch').append('<li style="float:left;list-style-position:inside;" onclick="a('+name2+','+id2+');">'+name+' - '+email+'</li>');
+               // $('#divSearch').append('<li style="float:left;list-style-position:inside;" onclick="a('+name2+','+id2+');">'+name+' - '+email+'</li><br />');
+                $('#divSearch').append('<table class="table table-bordered"><tr onclick="a('+name2+','+id2+');"><td>'+name+' - '+email+'</td></tr></table>')
 
              });
 
@@ -173,7 +174,7 @@
            <th></th>
         </tr>
               <?php
-                 echo $usid;
+           //     echo $usid;
 
                  $tempCount=1;
                  foreach($messages as $message)
@@ -236,7 +237,7 @@
       </div>
       <div class="modal-body">
         <?php
-            var_dump($userInfo);
+         //   var_dump($userInfo);
         ?>
         <?php echo $this->Form->create('messages',array('controller' => 'messages','action' => 'send')); ?>
           <div class="form-group">
@@ -250,14 +251,6 @@
                     );
 
 
-
-                  //   echo $this->Form->input('Search', array(
-                  //   'type'    => 'select',
-                  //   'options' => $queryfind,
-                  //   'empty'   => false,
-                  //   'id' => 'select2',
-                  //   'name' => 'to_id'
-                  // ));
 
                     ?>
 
@@ -282,8 +275,7 @@
                     ?>
 
             <div id='divSearch'>
-           
-
+              
             </div>
 
           </div>

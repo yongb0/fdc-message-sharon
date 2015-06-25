@@ -435,9 +435,9 @@
 
 			// $rs = $this->User->findByName('sharon');
 
-			 $rs=$this->User->find('first', array('conditions' => array('User.name LIKE' => "$r%")));
+			 $rs=$this->User->find('list', array('fields' => array('User.name','User.id'),'conditions' => array('User.name LIKE' => "$r%")));
 
-
+			 
 			// $rs = $this->User->find('all', array('conditions'=>array('User.name LIKE'=>'$r%')));
 		//	$unserializedData =  unserialize($rs);
 			echo json_encode($rs);

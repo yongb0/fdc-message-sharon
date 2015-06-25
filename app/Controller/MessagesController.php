@@ -79,19 +79,7 @@
 							         )
 							  ));
 
-						           $queryfind = $this->Message->find('all', 
-								 		 array(
-								       'fields' => array('DISTINCT users.id','users.name','users.email'),
-								       'joins' => array(array('table' => 'users',
-				                               'alias' => 'users',
-				                               'type' => 'INNER',
-				                               'conditions' => array('users.id !=' => $userid_from,
-				                               'order by' => 'users.id asc')
-				                         ))
-									         )
-									  ); 
-						           $this->set('userInfo',$queryfind);
-						           $this->set(compact('queryfind'));	
+						      
 
 
 						        //    $this->set('')
@@ -111,24 +99,12 @@
 							       'joins' => array(array('table' => 'users',
 							                               'alias' => 'users',
 							                               'type' => 'INNER',
-							                               'conditions' => array('users.id = Message.to_id','Message.from_id' => $usId,'Message.to_id !=' => $usId),
+							                               'conditions' => array('users.id = Message.to_id',array('OR' => array('Message.from_id' => $usId, 'Message.to_id' => $usId) )),
 							                               'order' =>array('Message.to_id DESC')
 							                         ))
 							         )
 							  ));
-						    	  	 $queryfind = $this->Message->find('all', 
-								 		 array(
-								       'fields' => array('DISTINCT users.id','users.name','users.email'),
-								       'joins' => array(array('table' => 'users',
-				                               'alias' => 'users',
-				                               'type' => 'INNER',
-				                               'conditions' => array('users.id !=' => $userid_from),
-				                               'order' => array('users.id DESC')
-				                         ))
-									         )
-									  );
-						    	  	 $this->set('userInfo',$queryfind);
-						    	  	 $this->set(compact('queryfind'));	
+						    	  	
 
 
 						    }
