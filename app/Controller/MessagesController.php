@@ -148,7 +148,6 @@
 
 
 						    }
-
 						    $this->set('usid',$usId);
 						    $userid_from = $this->Session->read('usersid');
 							$this->set('sessname',$this->Message->find('all', 
@@ -161,21 +160,6 @@
 				                         ))
 				         )
 				  ));
-
-
-
-								$this->set('userList',$this->Message->find('all', 
-						 		 array(
-						       'fields' => array('DISTINCT users.id','users.name'),
-						       'joins' => array(array('table' => 'users',
-				                               'alias' => 'users',
-				                               'type' => 'INNER',
-				                               'conditions' => array('users.id !=' => $userid_from)
-				                         ))
-				         			)
-								  ));
-
-
 						}
 			}
 

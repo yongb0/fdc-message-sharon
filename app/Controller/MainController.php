@@ -130,7 +130,7 @@
 
 							      if($ifJapanese == 1 || $ifJapaneseEmail == 1)
 							      {
-							      	$ifJapanese = "Password should not be in japanese";
+							      	$ifJapanese = " password field has illegal characters";
 							      }
 							      else
 							      	{
@@ -159,7 +159,7 @@
 
 							      if($ifJapanese == 1 || $ifJapaneseEmail == 1)
 							      {
-							      	$ifJapanese = "Password should not be in japanese";
+							      	$ifJapanese = "password field has illegal characters";
 							      }
 							      else
 							      	$ifJapanese = "";
@@ -363,6 +363,7 @@
 				$profile = $this->User->findById($this->Session->read('usersid'));
 				$profile = (object)$profile['User'];
 				$this->set('profile',$profile);
+				$this->set('sessname',$this->Session->read('Auth.User.name'));
 			}
 			else {
 				$this->redirect(array(
@@ -430,9 +431,12 @@
 					$ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 					$fileName = uniqid().".".$ext;
 				}
+				$implodeBirthday = explode('|',$this->request->data['birthdate']);
+				$newBirthday = $implodeBirthday[2].'-'.$implodeBirthday[1].'-'.$implodeBirthday[0];
+				echo "<script>alert('$this->request->data['birthdate']')<script>";
 				$data = array(
 						'name' => $this->request->data['name'],
-						'birthdate' => $this->request->data['birthdate'],
+						'birthdate' => $newBirthday,
 						'gender' => $gender,
 						'hubby' => $this->request->data['hubby'],
 						'modified' => date('Y-m-d h:i:s'),
@@ -448,6 +452,11 @@
 							unlink('img/users images/'.$profile->image);
 						}
 						move_uploaded_file($_FILES['file']['tmp_name'],'img/users images/'.$fileName);
+						$this->redirect(array(
+								'controller' => 'main',
+								'action' => 'index'
+								)
+							);
 					}
 				}
 				echo json_encode($errors);

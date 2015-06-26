@@ -49,6 +49,10 @@
 		<tr>
 		</tr>
 		<tr>
+		</tr>
+		<tr>
+		</tr>
+		<tr>
 			<td> <center> <h1>Profile </center> </h1> </td>
 		</tr>
 		<tr>

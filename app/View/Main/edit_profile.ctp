@@ -1,9 +1,45 @@
 
-
+ <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <?php echo $this->Html->css('profile'); ?>
 <?php echo $this->Html->script('edit-profile'); ?>
 <?php echo $this->Html->script('bootstrap-datepicker.min'); ?>
+<body>
 
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="">Message Board</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                  
+
+                  <li>
+                        <?php echo $this->Html->link('Hi '.strtoupper($sessname[0]['users']['name']).'!', array('controller' => 'main', 'action' => 'profile')); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link( "Messages",   array('controller' => 'messages','action'=>'send'),array('escape' => false) ); ?>
+                    </li>
+                    <li>
+                        <?php  echo $this->Html->link( "Logout",   array('controller' => 'main', 'action'=>'logout') ); ?>
+                    </li>
+                    
+                   
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
 <div id="profile-container">
 <?php echo $this->Form->create("post",array(
@@ -14,7 +50,7 @@
 ?>
 	<table>
 		<tr>
-			<td> <center> <h1> User Profile </center> </h1> </td>
+			<td> <center> <h1> Edit Profile </center> </h1> </td>
 		</tr>
 		<tr>
 			<td> 

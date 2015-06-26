@@ -47,7 +47,7 @@
 
 
             function showNextItems() {
-                var pagination = 2;
+                var pagination = 3;
                 
                 for (var i = itemsCount; i < (itemsCount + pagination); i++) {
                     $('.outer div:eq(' + i + ')').show();
@@ -243,6 +243,7 @@
   ?>
 <div id="inbox-container">
 	<div>
+    <center>
 		<table class="table table-striped table-hover" id="table-inbox" style="width: 80%">
 			<tbody>
 				<tr>
@@ -342,6 +343,7 @@
         
 			</tbody>
 		</table>
+  </center>
 	</div>
 </div>
 
@@ -367,7 +369,7 @@
           ?>
         <!-- </select> -->
     </div>
- -->
+
 
 <a href="#" id="showMore"><b><u>SEE MORE</u></b></a>
 

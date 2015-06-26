@@ -32,6 +32,7 @@ $(document).ready(function(){
 	    .on('changeDate', function(e) {
 	
 	        $('#dateRangeForm').formValidation('revalidateField', 'date');
+	        alert(e);
 	
 	    });
 
@@ -71,6 +72,7 @@ function update() {
 					$("#lbl-errors").html(errorsTxt);
 				} else {
 					alert('Update Successful');
+					window.location.href = '/main/';
 					//ShowMessage("Message","Successfully update profile","reload");
 				}
 

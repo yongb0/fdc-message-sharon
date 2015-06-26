@@ -17,7 +17,7 @@ padding-left: 70px;
 
 	
 
- echo $this->Form->create('post',array('id' => 'reg-frm')); ?>
+ echo $this->Form->create('post',array('id' => 'reg-frm','novalidate' => false)); ?>
 <table>
 	<tr>
 		<td colspan=3>
