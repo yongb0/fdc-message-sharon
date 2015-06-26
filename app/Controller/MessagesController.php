@@ -48,7 +48,7 @@
    				$usId = $this->Session->read('usersid');
    				$userid_from =  $this->Session->read('usersid');
 
-
+   				$arrayname[] = array();
    				if (!$this->Session->read("usersid")) {
 
 				$this->redirect(array(
@@ -60,54 +60,95 @@
    				
 				else
 				{
-
+							$arrayMessage[] = array();
 						    if ($this->request->is('post')) {
 						        // If the form data can be validated and saved...
 						        if ($this->Message->save($this->request->data)) {
 						            // Set a session flash message and redirect.
 						          //  $this->Shttp://message.localhost/messages/send#ession->setFlash('Message Sent');
-
-						            $this->set('messages',$this->Message->find('all', 
+						        	$s = '';
+						             $getuserMessage = $this->Message->find('all', 
 							 		 array(
-							       'fields' => array('DISTINCT Message.to_id','users.name','users.id','users.modified_ip'),
+							       'fields' => array('DISTINCT Message.to_id', 'users.name','users.id','users.modified_ip','Message.modified'),
 							       'joins' => array(array('table' => 'users',
 							                               'alias' => 'users',
 							                               'type' => 'INNER',
-							                               'conditions' => array('users.id = Message.to_id','Message.from_id' => $usId,'Message.to_id !=' => $usId),
-							                               'order' =>array('Message.to_id DESC')
-							                         ))
+							                               'conditions' => array('OR' => array('users.id = Message.to_id', 'users.id = Message.from_id'),array('OR' => array('Message.from_id' => $usId, 'Message.to_id' => $usId) ),'users.id !=' =>$usId),
+							                               'order' =>array('Message.id DESC')
+							                         )),'order' => array('Message.id DESC')
 							         )
-							  ));
+							  );
+						    	  $this->set('messages',$getuserMessage);
+
+						    	  foreach ($getuserMessage as $value) {
+
+						    	  		$message_toId = $value['users']['id'];
+						    	  		$mesName = $value['users']['name'];
+						    	  		$findWhereId = $this->Message->find('first', array('conditions' => array('from_id' => array($message_toId,$userid_from),'to_id' => array($message_toId,$userid_from)),'order' => 'modified DESC'));
+						    	  		foreach ($findWhereId as $key => $valueMessage) {
+						    	  			$content = $valueMessage['content'];
+						    	  			$modified = $valueMessage['modified'];
+
+
+						    	  			$s .= $content.'|'.$message_toId.'@';	
+
+						    	  			$arrayname[$message_toId] = '<b>'.$content.'</sb>'.'<br />'.$modified;
+
+
+						    	  		}
+						    	  	//	$s .= '<br />';
+						    	  }
+
+
+						    	  $this->set('contentS',$arrayname);
+						    	  	
 
 						      
 
-
-						        //    $this->set('')
-						       //      $this->redirect(array(
-													// 	'controller' => 'main',
-													// 	'action' => 'index'
-													// ));
-
-						            //return $this->redirect('/recipes');
 						        }
 						    }
 						    else
 						    {
-						    	  $this->set('messages',$this->Message->find('all', 
+						    	$s = '';
+						    	  $getuserMessage = $this->Message->find('all', 
 							 		 array(
-							       'fields' => array('DISTINCT Message.to_id', 'users.name','users.id','users.modified_ip'),
+							       'fields' => array('DISTINCT Message.to_id', 'users.name','users.id','users.modified_ip','Message.modified'),
 							       'joins' => array(array('table' => 'users',
 							                               'alias' => 'users',
 							                               'type' => 'INNER',
-							                               'conditions' => array('users.id = Message.to_id',array('OR' => array('Message.from_id' => $usId, 'Message.to_id' => $usId) )),
-							                               'order' =>array('Message.to_id DESC')
-							                         ))
+							                               'conditions' => array('OR' => array('users.id = Message.to_id', 'users.id = Message.from_id'),array('OR' => array('Message.from_id' => $usId, 'Message.to_id' => $usId) ),'users.id !=' =>$usId),
+							                               'order' =>array('Message.id DESC')
+							                         )),'order' => array('Message.id DESC')
 							         )
-							  ));
+							  );
+						    	  $this->set('messages',$getuserMessage);
+
+						    	  foreach ($getuserMessage as $value) {
+
+						    	  		$message_toId = $value['users']['id'];
+						    	  		$mesName = $value['users']['name'];
+						    	  		$findWhereId = $this->Message->find('first', array('conditions' => array('from_id' => array($message_toId,$userid_from),'to_id' => array($message_toId,$userid_from)),'order' => 'modified DESC'));
+						    	  		foreach ($findWhereId as $key => $valueMessage) {
+						    	  			$content = $valueMessage['content'];
+						    	  			$modified = $valueMessage['modified'];
+
+
+						    	  			$s .= $content.'|'.$message_toId.'@';	
+
+						    	  			$arrayname[$message_toId] = '<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"'.$content.'"</sb>'.'<br />'.$modified;
+
+
+						    	  		}
+						    	  	//	$s .= '<br />';
+						    	  }
+
+
+						    	  $this->set('contentS',$arrayname);
 						    	  	
 
 
 						    }
+
 						    $this->set('usid',$usId);
 						    $userid_from = $this->Session->read('usersid');
 							$this->set('sessname',$this->Message->find('all', 
@@ -120,6 +161,21 @@
 				                         ))
 				         )
 				  ));
+
+
+
+								$this->set('userList',$this->Message->find('all', 
+						 		 array(
+						       'fields' => array('DISTINCT users.id','users.name'),
+						       'joins' => array(array('table' => 'users',
+				                               'alias' => 'users',
+				                               'type' => 'INNER',
+				                               'conditions' => array('users.id !=' => $userid_from)
+				                         ))
+				         			)
+								  ));
+
+
 						}
 			}
 
@@ -130,6 +186,17 @@
 				$id = $this->params['pass']; 
 				$userid_to = $id[0]; 
 				//$this->set('id',$userid);
+
+				if (!$this->Session->read("usersid")) {
+
+				$this->redirect(array(
+							'controller' => 'main',
+							'action' => 'login'
+								)
+							);
+				}
+				else
+				{
 
 
 				$listMessage=$this->Message->find('all', array('conditions' => array('from_id' => array($userid_to,$userid_from),'to_id' => array($userid_to,$userid_from)),'order by' => 'Message.modified'));
@@ -150,6 +217,7 @@
 				         )
 				  ));
 
+				$this->set('idUser',$userid_to);
 
 				$this->set('username',$this->Message->find('all', 
 				 		 array(
@@ -157,7 +225,7 @@
 				       'joins' => array(array('table' => 'users',
 				                               'alias' => 'users',
 				                               'type' => 'INNER',
-				                               'conditions' => array('users.id = Message.to_id','users.id' => $userid_to),
+				                               'conditions' => array('OR' => array('users.id = Message.to_id', 'users.id = Message.from_id'),'users.id' => $userid_to),
 				                               'order' =>array('Message.to_id DESC')
 				                         ))
 				         )
@@ -174,8 +242,9 @@
 			    $users = $this->paginate('Message');
 			     
 			    // pass the value to our view.ctp
-			    $this->set('users', $users);
+				    $this->set('users', $users);
 
+				   } 
 
 			}
 
@@ -216,14 +285,22 @@
 			//	$this->Message->deleteAll(array('Message.id' => $messageId));
 
 
+				// $conditions = array(
+				//     'OR' => array(
+				//         'Message.to_id' => $userid_from,
+				//         'Message.to_id'=> $other_user
+				//     ),'OR' => array(
+				//         'Message.from_id' => $userid_from,
+				//         'Message.from_id'=> $other_user)
+				// );
+
+
 				$conditions = array(
-				    'OR' => array(
-				        'Message.to_id' => $userid_from,
-				        'Message.to_id'=> $other_user,
-				        'Message.from_id' => $userid_from,
-				        'Message.from_id'=> $other_user
-				    )
+				    array('Message.to_id' => array($userid_from,$other_user),'Message.from_id' =>array($userid_from,$other_user))
 				);
+
+
+			//	$condition = 
 
 				$this->Message->deleteAll($conditions);
 

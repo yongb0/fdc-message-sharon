@@ -28,9 +28,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                  <li>
-                     <?php print $this->Session->read('Auth.User.username'); ?>
-                  </li>
+                  
 
                   <li>
                         <?php echo $this->Html->link('Hi '.strtoupper($sessname[0]['users']['name']).'!', array('controller' => 'main', 'action' => 'profile')); ?>
@@ -195,10 +193,10 @@ $('#showMore').on('click', function (e) {
 
 
       <?php
-    //  var_dump($sessname);
+     // var_dump($username);
          //   echo $userid.'|'.$userid_to;
       //echo $sessname;
-      $idUser = $username[0]['users']['id'];
+      $idUser = $idUser;
       echo '<b>'.strtoupper($username[0]['users']['name']).'</b>&nbsp;&nbsp;&nbsp;&nbsp;';?>
       <button type="button" alass="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">+New Message</button>
       <?php

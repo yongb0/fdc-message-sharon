@@ -23,11 +23,7 @@
 		<p class="warning"><?php echo __d('debug_kit', 'There are no active panels. You must enable a panel to see its output.'); ?></p>
 	<?php else: ?>
 		<ul id="panel-tabs">
-			<li class="panel-tab icon">
-				<a href="#hide" id="hide-toolbar">
-					<?php echo $this->Html->image('/debug_kit/img/cake.icon.png', array('alt' => 'CakePHP')); ?>
-				</a>
-			</li>
+			
 		<?php foreach ($debugToolbarPanels as $panelName => $panelInfo): ?>
 			<?php $panelUnderscore = Inflector::underscore($panelName);?>
 			<li class="panel-tab">

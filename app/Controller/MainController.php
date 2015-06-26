@@ -94,9 +94,12 @@
 
 		public function registration() {
 
+
+			$errors = "";
 			if (!$this->Session->read('usersid')) {
 				$this->set('login',0);
 				if ($this->request->is('post')) {
+					$errors = '';
 					$data = array(
 								'name' => $this->request->data['name'],
 								'email' => $this->request->data['email'],
@@ -105,7 +108,6 @@
 							);
 					$this->loadModel('User');
 					$this->User->set($data);
-					$errors = "";
 					if ($this->User->validates()) {
 						$saveData = array(
 									'name' => $this->request->data['name'],
@@ -118,22 +120,62 @@
 									'modified_ip' => $this->request->clientIp(),
 									'last_login_time' => date('Y-m-d h:i:s')
 								);
-						$success = $this->User->save($saveData);
-						if ($success) {
-							$user = $this->User->findByEmail($this->request->data['email']);
-							$id = $user['User']['id'];
-							$this->Session->write('usersid',$id);
-							echo "<script>alert('Successfully registered new user account');</script>";
-							echo "<script>location.href = 'completed'; </script>";
-						}
+
+								function isJapanese($lang) {
+							          return preg_match('/[\x{4E00}-\x{9FBF}\x{3040}-\x{309F}\x{30A0}-\x{30FF}]/u', $lang);
+							      }
+							      $ifJapanese = isJapanese($this->request->data['password']);
+							      $ifJapaneseEmail = isJapanese($this->request->data['email']);
+
+
+							      if($ifJapanese == 1 || $ifJapaneseEmail == 1)
+							      {
+							      	$ifJapanese = "Password should not be in japanese";
+							      }
+							      else
+							      	{
+
+							      		$success = $this->User->save($saveData);
+										if ($success) {
+											$user = $this->User->findByEmail($this->request->data['email']);
+											$id = $user['User']['id'];
+											$this->Session->write('usersid',$id);
+											echo "<script>alert('Successfully registered new user account');</script>";
+											echo "<script>location.href = 'completed'; </script>";
+										}
+							      	}
+
+						
 					} else {
+						$errors = "";
+							   // $word = "激安価格お買い得タイヨー脱腸帯·片側用 fm 腰回り";
+							     // $word2 = "This is the english language";
+
+							      function isJapanese($lang) {
+							          return preg_match('/[\x{4E00}-\x{9FBF}\x{3040}-\x{309F}\x{30A0}-\x{30FF}]/u', $lang);
+							      }
+							      $ifJapanese = isJapanese($this->request->data['password']);
+							      $ifJapaneseEmail = isJapanese($this->request->data['email']);
+
+							      if($ifJapanese == 1 || $ifJapaneseEmail == 1)
+							      {
+							      	$ifJapanese = "Password should not be in japanese";
+							      }
+							      else
+							      	$ifJapanese = "";
+							  
+
+
 						foreach($this->User->validationErrors as $error) {
 							$errors .= $error[0] . ",<br>";
 						}
 					}
 					$this->set('data',$this->request->data);
-					$this->set('errors',$errors);
+					$this->set('errors',$errors.$ifJapanese);
 				}
+				else
+					$this->set('errors','');
+
 			}
 			else {
 				$this->redirect(array(
@@ -432,10 +474,10 @@
 			 $r = $_POST['recipient'];
 			 $this->loadModel('User');
 
-
+			 $userID = $this->Session->read('usersid');
 			// $rs = $this->User->findByName('sharon');
 
-			 $rs=$this->User->find('list', array('fields' => array('User.name','User.id'),'conditions' => array('User.name LIKE' => "$r%")));
+			 $rs=$this->User->find('list', array('fields' => array('User.name','User.id'),'conditions' => array('User.name LIKE' => "$r%",'User.id !=' => $userID)));
 
 			 
 			// $rs = $this->User->find('all', array('conditions'=>array('User.name LIKE'=>'$r%')));

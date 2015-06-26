@@ -17,9 +17,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                	<li>
-                		Welcome <?php print $this->Session->read('Auth.Main.name'); ?>
-                	</li>
+              
 
                 	<li>
                         <?php echo $this->Html->link('Hi '.strtoupper($sessname[0]['users']['name']).'!', array('controller' => 'main', 'action' => 'profile')); ?>
@@ -48,6 +46,8 @@
 <div id="profile-container">
 
 	<table>
+		<tr>
+		</tr>
 		<tr>
 			<td> <center> <h1>Profile </center> </h1> </td>
 		</tr>

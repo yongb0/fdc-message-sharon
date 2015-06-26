@@ -98,9 +98,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                	<li>
-                		Welcome <?php print $this->Session->read('Auth.User.username'); ?>
-                	</li>
+               
 
                 	<li>
                         <?php echo $this->Html->link('Hi '.$this->Session->read('Auth.User.username').'!', array('controller' => 'main', 'action' => 'profile')); ?>
