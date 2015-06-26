@@ -364,6 +364,7 @@
 				$profile = (object)$profile['User'];
 				$this->set('profile',$profile);
 				$this->set('sessname',$this->Session->read('Auth.User.name'));
+				$findWhereId = $this->User->find('all', array('conditions' => array('id' => $this->Session->read('usersid'))));
 			}
 			else {
 				$this->redirect(array(
@@ -410,6 +411,7 @@
 		}
 
 		public function updateProfile() {
+			$errors = '';
 
 			if ($this->request->is('ajax')) {
 				$this->autoRender = false;
@@ -419,7 +421,7 @@
 				$profile = (object)$User['User'];
 				
 				$this->User->id = $this->Session->read('usersid');
-				$errors = false;
+				//$errors = false;
 				$gender = "";
 				if($this->request->data['male']) {
 					$gender = "M";
@@ -431,12 +433,12 @@
 					$ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 					$fileName = uniqid().".".$ext;
 				}
-				$implodeBirthday = explode('|',$this->request->data['birthdate']);
-				$newBirthday = $implodeBirthday[2].'-'.$implodeBirthday[1].'-'.$implodeBirthday[0];
-				echo "<script>alert('$this->request->data['birthdate']')<script>";
+			//	$implodeBirthday = explode('|',$this->request->data['birthdate']);
+			//	$newBirthday = $implodeBirthday[2].'-'.$implodeBirthday[1].'-'.$implodeBirthday[0];
+			//	echo "<script>alert('$this->request->data['birthdate']')<script>";
 				$data = array(
 						'name' => $this->request->data['name'],
-						'birthdate' => $newBirthday,
+						'birthdate' => '2015-06-03',
 						'gender' => $gender,
 						'hubby' => $this->request->data['hubby'],
 						'modified' => date('Y-m-d h:i:s'),
@@ -448,16 +450,15 @@
 					$errors = $this->User->validationErrors;
 				} else {
 					if($_FILES) {
+						$errors = '1';
 						if (!empty($profile->image)) {
 							unlink('img/users images/'.$profile->image);
 						}
 						move_uploaded_file($_FILES['file']['tmp_name'],'img/users images/'.$fileName);
-						$this->redirect(array(
-								'controller' => 'main',
-								'action' => 'index'
-								)
-							);
+				//		echo "<script>alert('sdsdsdsdsdsd')<script>";
+						
 					}
+					
 				}
 				echo json_encode($errors);
 					

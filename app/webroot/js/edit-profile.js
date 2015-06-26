@@ -63,18 +63,26 @@ function update() {
             processData: false,
             success:function(errors){
 
+
             	var errors = JSON.parse(errors);
-            	if(errors) {
+            	//alert(errlengths);
+
+            	if(errors == '1') {
+						
+						
+						window.location.href = '/main/profile';
+
+				}
+				else
+				{
 					var errorsTxt = "";
 					for(var field in errors) {
 						errorsTxt += errors[field][0] + ",<br>";
 					}
 					$("#lbl-errors").html(errorsTxt);
-				} else {
-					alert('Update Successful');
-					window.location.href = '/main/';
-					//ShowMessage("Message","Successfully update profile","reload");
 				}
+
+			
 
             }
         });
