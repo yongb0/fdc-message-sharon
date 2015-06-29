@@ -95,7 +95,10 @@
 				</tr>	
 				<tr>
 					<td> Birth Date </td> 
-					<td> <b> <?php echo $profile->birthdate; ?> </b> </td> 
+					<td> <b> <?php //echo $profile->birthdate;
+
+						echo date("F j, Y ", strtotime($profile->birthdate));
+					 ?> </b> </td> 
 				</tr>
 				<tr>
 					<td> Joined </td> 

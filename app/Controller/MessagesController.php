@@ -300,6 +300,8 @@
 
 				$this->Message->deleteAll($conditions);
 
+				echo "<script>alert('Deleted')</script>";
+
 				$this->redirect(array(
 							'controller' => 'messages',
 							'action' => 'send'

@@ -209,7 +209,7 @@
 											    'onclick' => 'changeGender(this.value)'
 											));
 						?>
-						<input type="hidden" id="genval">
+						<input type="hidden" id="genval" value="<?php echo $profile->gender;?>">
 					</td>
 				</tr>
 				<tr> 

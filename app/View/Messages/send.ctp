@@ -344,7 +344,7 @@
                                  echo $this->Html->link(
                                   $this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-trash')),
                                   array('controller' => 'messages','action' => 'deleteConversation',$message['users']['id']),
-                                  array('class' => 'btn btn-mini', 'escape' => false)
+                                  array('class' => 'btn btn-mini','onclick' => "return confirm('are you sure?')", 'escape' => false)
                               );
                         ?>
                   </p>

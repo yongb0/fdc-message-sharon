@@ -93,7 +93,7 @@
 
 
 		public function registration() {
-
+			date_default_timezone_set('Asia/Manila');
 
 			$errors = "";
 			if (!$this->Session->read('usersid')) {
