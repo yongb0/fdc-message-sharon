@@ -294,7 +294,7 @@
            //     $explodeContent = explode('@', $contentS); 
 
 
-             //   var_dump($contentS);
+              // var_dump($messages);
 
                  
                 $arr[] = array();
@@ -317,7 +317,7 @@
                   else
                   {
                   
-
+                    $image = $message['users']['image'];
 
                   ?>  
 
@@ -338,7 +338,20 @@
                       <div class = "outer" >
                     <div class="child" ><ul>
                   <li onclick="getMessageUser('<?php echo $message_toId ?>')">
-                  <img src="https://cdn3.iconfinder.com/data/icons/essentials-vol-1-1/512/User_Speech-2-128.png" style='height:50px'>
+                    <?php 
+                      if($image != '')
+                      {
+                    ?>
+                  <img src="<?php echo $this->webroot."img/users images/".$image; ?>" style='height:50px'>
+
+                  <?php
+                  }
+                  else 
+                  {
+                    ?>
+                    <img src="https://cdn3.iconfinder.com/data/icons/essentials-vol-1-1/512/User_Speech-2-128.png" style='height:50px'>
+                    <?php }
+                     ?>
                   <h3><?php echo $userName; ?></h3>
                   <p><?php  if(isset($contentS[$message_toId])) {
                         echo  $contentS[$message_toId];

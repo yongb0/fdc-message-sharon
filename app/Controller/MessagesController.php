@@ -69,7 +69,7 @@
 						        	$s = '';
 						             $getuserMessage = $this->Message->find('all', 
 							 		 array(
-							       'fields' => array('DISTINCT Message.to_id', 'users.name','users.id','users.modified_ip','Message.modified'),
+							       'fields' => array('DISTINCT Message.to_id', 'users.name','users.id','users.modified_ip','Message.modified','users.image'),
 							       'joins' => array(array('table' => 'users',
 							                               'alias' => 'users',
 							                               'type' => 'INNER',
@@ -112,7 +112,7 @@
 						    	$s = '';
 						    	  $getuserMessage = $this->Message->find('all', 
 							 		 array(
-							       'fields' => array('DISTINCT Message.to_id', 'users.name','users.id','users.modified_ip','Message.modified'),
+							       'fields' => array('DISTINCT Message.to_id', 'users.name','users.id','users.modified_ip','Message.modified','users.image'),
 							       'joins' => array(array('table' => 'users',
 							                               'alias' => 'users',
 							                               'type' => 'INNER',

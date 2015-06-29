@@ -129,7 +129,7 @@
 				<center>
 					<img src="<?php echo ($profile->image) ? 
 										$this->webroot."img/users images/$profile->image" :
-										$this->webroot."img/ICONS/user2.png"; 
+										$this->webroot."img/user_icon/user2.png"; 
 							?>"
 
 					style="max-width:300px;" id="users-image">
