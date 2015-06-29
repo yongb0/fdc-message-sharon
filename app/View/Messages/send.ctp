@@ -52,7 +52,7 @@
             function showNextItems() {
 
 
-                var pagination = 3;
+                var pagination = 2;
                 
                 for (var i = itemsCount; i < (itemsCount + pagination); i++) {
                     $('.outer div:eq(' + i + ')').show();
