@@ -25,6 +25,7 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 	Router::connect('/', array('controller' => 'messages', 'action' => 'send', 'home'));
+	Router::connect('/messages', array('controller' => 'messages', 'action' => 'send', 'home'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */	

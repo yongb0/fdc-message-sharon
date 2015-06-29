@@ -46,14 +46,40 @@ function reload() {
 
 function update() {
 
+
+	var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+		    dd='0'+dd
+		} 
+
+		if(mm<10) {
+		    mm='0'+mm
+		} 
+
+		today = yyyy+'-'+mm+'-'+dd;
+
+
+	var dateParts = $("#birthdate").val().split(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  	var dateFinal =  dateParts[3] + "-" + dateParts[1] + "-" + dateParts[2];
+
     var fd = new FormData();
     fd.append("name",$("#name").val());
-    fd.append("birthdate",$("#birthdate input").val());
+    fd.append("birthdate",dateFinal);
     fd.append("hubby",$("#hubby").val());
     fd.append("male",$("input[type='radio'][name='gender']:checked").val());
     if($("#file")[0].files.length) {
 	    fd.append("file",$("#file")[0].files[0]);
     }
+    if(today < dateFinal)
+    {
+    	alert('Invalid Birthdate');
+    }
+    else
+    {
      $.ajax({
             type:'POST',
             url: base_url + "main/updateProfile",
@@ -62,12 +88,12 @@ function update() {
             contentType: false,
             processData: false,
             success:function(errors){
-
+            	//alert(errors);
 
             	var errors = JSON.parse(errors);
             	//alert(errlengths);
 
-            	if(errors == '1') {
+            	if(errors == '1' || errors == "") {
 						
 						
 						window.location.href = '/main/profile';
@@ -86,4 +112,5 @@ function update() {
 
             }
         });
+ 	}
 }

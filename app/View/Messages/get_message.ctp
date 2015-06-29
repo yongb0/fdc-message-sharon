@@ -23,7 +23,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">Message Board</a>
+                <a class="navbar-brand" href="<?php echo '/messages/send/' ?>">Message Board</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -117,7 +117,7 @@
             $('.outer div').hide();
 
             function showNextItems() {
-                var pagination = 10;
+                var pagination = 3;
                 
                 for (var i = itemsCount; i < (itemsCount + pagination); i++) {
                     $('.outer div:eq(' + i + ')').show();

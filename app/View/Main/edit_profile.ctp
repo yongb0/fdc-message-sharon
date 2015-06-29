@@ -1,7 +1,55 @@
 
  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+
+   <script>
+  $(function() {
+
+  	var bday = $('#bd').val();
+
+  	var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+		    dd='0'+dd
+		} 
+
+		if(mm<10) {
+		    mm='0'+mm
+		} 
+
+		today = mm+'/'+dd+'/'+yyyy;
+
+  	
+    $( "#bd" ).datepicker();
+
+  	
+  });
+
+
+  function getValue()
+  {
+  	alert($('#birthdate').val());
+  }
+  function updateProfile()
+  {
+  	var file  = $('#file').val();
+  	var name= $('#name').val();
+  	var birthdate= $('#datepicker').val();
+  	var gender = $('#gender').selected();
+  	var hubby= $('#hubby').val();
+
+
+  	alert(file+'|'+name+'|'+birthdate+'|'+gender+'|'+hubby);
+  }
+  </script>
 <?php echo $this->Html->css('profile'); ?>
-<?php echo $this->Html->script('edit-profile'); ?>
+//<?php echo $this->Html->script('edit-profile'); ?>
 <?php echo $this->Html->script('bootstrap-datepicker.min'); ?>
 <body>
 
@@ -16,7 +64,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">Message Board</a>
+                <a class="navbar-brand" href="<?php echo '/messages/send/' ?>">Message Board</a>
+              
+
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -24,7 +74,7 @@
                   
 
                   <li>
-                        <?php echo $this->Html->link('Hi '.strtoupper($sessname[0]['users']['name']).'!', array('controller' => 'main', 'action' => 'profile')); ?>
+                        <?php echo $this->Html->link('Hi '.strtoupper($sessname['User']['name']).'!', array('controller' => 'main', 'action' => 'profile')); ?>
                     </li>
                     <li>
                         <?php echo $this->Html->link( "Messages",   array('controller' => 'messages','action'=>'send'),array('escape' => false) ); ?>
@@ -62,7 +112,10 @@
 		</tr>
 		<tr>
 			<td> 
-				<?php echo $this->Form->file('',array(
+
+
+				<?php 
+				echo $this->Form->file('',array(
 									'name' => 'file',
 									'id' => 'file',
 									'style' => 'display:none'
@@ -109,20 +162,23 @@
 					<td> Birth Date </td> 
 					<td>
 						<div class="form-group">
-				            <div class="input-group input-append date" id="birthdate">
-				                <?php echo $this->Form->input(' ',array(
+				            <div class="input-group input-append date">
+				               
+
+				                <?php
+
+				                $newDate = date("m/d/Y", strtotime($profile->birthdate));
+				                 echo $this->Form->input(' ',array(
 											'name' => 'birthdate',
 											'id' => 'birthdate',
 											'class' => 'form-control',
-											'value' => $profile->birthdate,
+											'value' => $newDate,
 											'readonly' => true
 											)
 										); 
 								?>
 				                <span class="input-group-addon add-on"  style="height: 22px;">
-				                	<div class="date-icon" style="height:20px">
-				                		<img src="<?php echo $this->webroot."img/ICONS/date.png"; ?>">
-				                	</div>
+				                	
 				                </span>
 				            </div>
 					    </div>
@@ -177,6 +233,7 @@
 														);
 
 						?>
+						<input type="button" value="UPDATESS" onclick="updateProfile();">
 						</center>
 					</td>
 				</tr>

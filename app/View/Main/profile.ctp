@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Message Board</a>
+                <a class="navbar-brand" href="<?php echo '/messages/send/' ?>">Message Board</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -73,7 +73,11 @@
 				<tr>
 					<td> Email </td>
 					<td> 
-						<b> <?php echo $profile->email; ?> </b> &nbsp;
+						<b> <?php 
+
+						//var_dump($sessname);
+
+						echo $profile->email; ?> </b> &nbsp;
 						<?php 
 								if($profile->id === $this->Session->read('usersid')) {
 									echo $this->Html->link('','editEmail',array(
@@ -95,11 +99,21 @@
 				</tr>
 				<tr>
 					<td> Joined </td> 
-					<td> <b> <?php echo $profile->created; ?> </b> </td> 
+					<td> <b> <?php
+					//$datee = date("F j, Y, g:i a",$sessname[0]['users']['created']); 
+					$datee =  date("F j, Y H:i:s", strtotime($sessname[0]['users']['created'])); 
+
+					 echo $datee; ?> </b> </td> 
 				</tr>
 				<tr>
 					<td> Last Login </td> 
-					<td> <b> <?php echo $profile->last_login_time; ?> </b> </td> 
+					<td> <b> <?php 
+
+
+
+
+
+					echo date("F j, Y H:i:s", strtotime($sessname[0]['users']['modified'])); ?> </b> </td> 
 				</tr>
 				<tr>
 					<td> Gender </td>

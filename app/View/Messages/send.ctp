@@ -4,6 +4,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
 <head>
         <link rel="stylesheet" type="css/text" href="test.css"/>
         <script type="text/javascript" src="test.js"></script>
@@ -25,21 +26,23 @@
               allowClear: true, // Adds X image to clear select
               closeOnSelect: true, // Only applies to multiple selects. Closes the select upon selection.
               placeholder: 'Select...',
-              minimumResultsForSearch: 15 // Removes search when there are 15 or fewer options
+              maximumResultsForSearch: 4,
+               // Removes search when there are 15 or fewer options
           });
 
           $(document).ready(
 
           function () {
 
+
+
+
               // Single select example if using params obj or configuration seen above
               var configParamsObj = {
-                  placeholder: 'Select an option...', // Place holder text to place in the select
-                  minimumResultsForSearch: 3 // Overrides default of 15 set above
+                  placeholder: 'Select ', // Place holder text to place in the select
+                  minimumResultsForSearch: 1 // Overrides default of 15 set above
               };
               $("#singleSelectExample").select2(configParamsObj);
-
-
 
            //   alert(configParamsObj);
 
@@ -193,6 +196,13 @@
                 background-color: blue;
                 color:#95B9C7;
             }
+            .selectRow {
+              display : block;
+              padding : 20px;
+          }
+.select2-container {
+    width: 200px;
+}
         </style>
     </head>
 
@@ -209,7 +219,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Message Board</a>
+                <a class="navbar-brand" href="<?php echo '/messages/send/' ?>">Message Board</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -242,12 +252,12 @@
 
   ?>
 <div id="inbox-container">
-	<div>
+  <div>
     <center>
-		<table class="table table-striped table-hover" id="table-inbox" style="width: 80%">
-			<tbody>
-				<tr>
-					<td colspan=4>  </td>
+    <table class="table table-striped table-hover" id="table-inbox" style="width: 80%">
+      <tbody>
+        <tr>
+          <td colspan=4>  </td>
                     <td colspan='2'>
                        <h2> My Messages </h2>
                     <button type="button" alass="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">+New Message</button>
@@ -255,7 +265,7 @@
                 </td>
        
 
-				</tr>
+        </tr>
    
 
              
@@ -341,39 +351,21 @@
                //     var_dump($arr);
               ?>
         
-			</tbody>
-		</table>
+      </tbody>
+    </table>
   </center>
-	</div>
+  </div>
 </div>
 
-<!-- Button trigger modal -->
   <?php  // var_dump($userList); ?>
    
        
-  <!--   <div class="selectRow">
-        <select id="singleSelectExample">
-            <option></option><!-- Needed to show X image to clear the select -->
-            <?php
-
-          //  foreach ($userList as  $value) {
-          ?>
-
-         <!--  <option> -->
-            <?php //echo $value['users']['name']; ?>
-         <!--  </option> -->
-
-          <?php
-         // }
-
-          ?>
-        <!-- </select> -->
-    </div>
+   
 
 
 <a href="#" id="showMore"><b><u>SEE MORE</u></b></a>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -384,32 +376,40 @@
      
 
         <?php
-     //       var_dump($userList);
+            //var_dump($userList);
         ?>
         <?php echo $this->Form->create('messages',array('controller' => 'messages','action' => 'send')); ?>
           <div class="form-group">
-            <?php echo $this->Form->input('Recipient',array(
-                        'name' => 'to_id2',
-                        'id' => 'to_id2',
-                        'class' => 'form-control',
-                        'onkeyup' => 'search()'
-                      )
-                    );
+           
 
+                   
 
+            <div id='divSearch'>
+              
+            </div>
 
-                    ?>
+          </div>
+           <div class="form-group">
+             <label for="message-text" class="control-label">To:</label>
 
+                        <select  id="singleSelectExample" name="to_id" class="form-control" style="width:100%">
+                            <option></option><!-- Needed to show X image to clear the select -->
+                            <?php
 
+                           foreach ($userList as  $value) {
+                          ?>
 
-             <?php echo $this->Form->input(' ',array(
-                        'name' => 'to_id',
-                        'id' => 'to_id',
-                        'class' => 'form-control',
-                        'type' => 'hidden'
-                      )
-                    );
-                    ?>
+                         <option value="<?php echo $value['users']['id']; ?>">
+                            <?php echo $value['users']['name']; ?>
+                          </option> 
+
+                          <?php
+                          }
+
+                          ?>
+                         </select>
+                    
+
                      <?php echo $this->Form->input(' ',array(
                         'name' => 'from_id',
                         'id' => 'from_id',
@@ -419,11 +419,6 @@
                       )
                     );
                     ?>
-
-            <div id='divSearch'>
-              
-            </div>
-
           </div>
           <div class="form-group">
             <br />
@@ -471,4 +466,3 @@
 </head>
 
 <body>
-

@@ -233,7 +233,7 @@
 				
 				$this->set('sessname',$this->User->find('all', 
 				 		 array(
-				       'fields' => array('users.name','users.id'),
+				       'fields' => array('users.name','users.id','users.last_login_time','users.created','users.modified'),
 				       'joins' => array(array('table' => 'users',
 				                               'alias' => 'users',
 				                               'type' => 'INNER',
@@ -363,7 +363,7 @@
 				$profile = $this->User->findById($this->Session->read('usersid'));
 				$profile = (object)$profile['User'];
 				$this->set('profile',$profile);
-				$this->set('sessname',$this->Session->read('Auth.User.name'));
+				$this->set('sessname',$this->User->findById($this->Session->read('usersid')));
 				$findWhereId = $this->User->find('all', array('conditions' => array('id' => $this->Session->read('usersid'))));
 			}
 			else {
@@ -411,6 +411,9 @@
 		}
 
 		public function updateProfile() {
+
+
+			date_default_timezone_set('Asia/Manila');
 			$errors = '';
 
 			if ($this->request->is('ajax')) {
@@ -438,7 +441,7 @@
 			//	echo "<script>alert('$this->request->data['birthdate']')<script>";
 				$data = array(
 						'name' => $this->request->data['name'],
-						'birthdate' => '2015-06-03',
+						'birthdate' => $this->request->data['birthdate'],
 						'gender' => $gender,
 						'hubby' => $this->request->data['hubby'],
 						'modified' => date('Y-m-d h:i:s'),

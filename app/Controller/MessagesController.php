@@ -160,6 +160,18 @@
 				                         ))
 				         )
 				  ));
+
+							$this->set('userList',$this->Message->find('all', 
+					 		 array(
+					       'fields' => array('DISTINCT users.id','users.name'),
+					       'joins' => array(array('table' => 'users',
+				                               'alias' => 'users',
+				                               'type' => 'INNER',
+				                               'conditions' => array('users.id !=' => $userid_from)
+				                         ))
+				         )
+				  ));
+
 						}
 			}
 
