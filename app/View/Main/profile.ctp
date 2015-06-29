@@ -60,7 +60,7 @@
 				<center>
 				<img src="<?php echo ($profile->image) ? 
 										$this->webroot."img/users images/$profile->image" :
-										$this->webroot."img/ICONS/user2.png"; 
+										$this->webroot."img/user_icon/user2.png"; 
 							?>"
 
 					style="max-width:300px;" id="users-image">
@@ -102,24 +102,7 @@
 						echo date("F j, Y ", strtotime($profile->birthdate));
 					 ?> </b> </td> 
 				</tr>
-				<tr>
-					<td> Joined </td> 
-					<td> <b> <?php
-					//$datee = date("F j, Y, g:i a",$sessname[0]['users']['created']); 
-					$datee =  date("F j, Y H:i:s", strtotime($sessname[0]['users']['created'])); 
-
-					 echo $datee; ?> </b> </td> 
-				</tr>
-				<tr>
-					<td> Last Login </td> 
-					<td> <b> <?php 
-
-
-
-
-
-					echo date("F j, Y H:i:s", strtotime($sessname[0]['users']['modified'])); ?> </b> </td> 
-				</tr>
+				
 				<tr>
 					<td> Gender </td>
 					<td>

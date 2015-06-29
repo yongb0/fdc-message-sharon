@@ -26,7 +26,9 @@
 			<td>
 				<?php echo $this->Form->input('Email',array(
 									'name' => 'email',
-									'class' => 'form-control'
+									'class' => 'form-control',
+									'type' => 'email',
+									'required' => true
 								)); 
 				?>
 			</td>
@@ -37,7 +39,8 @@
 				<?php echo $this->Form->input('Password',array(
 									'name' => 'password',
 									'class' => 'form-control',
-									'type' => 'password'
+									'type' => 'password',
+									'required' => true
 								)); 
 				?>
 			</td>

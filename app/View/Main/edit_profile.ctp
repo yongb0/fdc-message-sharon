@@ -183,7 +183,7 @@
 											)
 										); 
 								?>
-				                <span class="input-group-addon add-on"  style="height: 22px;">
+				               
 				                	
 				                </span>
 				            </div>
@@ -242,7 +242,6 @@
 														);
 
 						?>
-						<input type="button" value="UPDATESS" onclick="updateProfile();">
 						</center>
 					</td>
 				</tr>

@@ -53,6 +53,7 @@ padding-left: 70px;
 		<td> 
 			<?php echo $this->Form->input(' ',array(
 												'name' => 'email',
+												'required' => true,
 												'class' => 'form-control',
 												'placeholder' => 'email',
 												'value' => (isset($data)) ? 
@@ -68,6 +69,7 @@ padding-left: 70px;
 		<td>
 			<?php echo $this->Form->password(' ',array(
 												'name' => 'password',
+												'required' => true,
 												'class' => 'form-control',
 												'placeholder' => 'Password',
 												'value' => (isset($data)) ? 
@@ -83,6 +85,7 @@ padding-left: 70px;
 		<td> 
 			<?php echo $this->Form->password(' ',array(
 												'name' => 'cpassword',
+												'required' => true,
 												'class' => 'form-control',
 												'placeholder' => 'Confirm password',
 												'value' => (isset($data)) ? 
@@ -99,6 +102,7 @@ padding-left: 70px;
 			<center>
 			<?php echo $this->Form->button('Sign up',array(
 												'type' => 'button',
+												'required' => true,
 												'id' => 'btn-register',
 												'class'=> 'btn btn-primary'
 												)
