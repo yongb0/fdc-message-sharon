@@ -125,7 +125,7 @@
 
                 itemsCount += pagination;
                 
-                if (itemsCount > itemsMax) {
+                if (itemsCount > itemsMax || itemsCount == itemsMax) {
                     $('#showMore').hide();
                 }
             };

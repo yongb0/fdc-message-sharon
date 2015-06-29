@@ -53,7 +53,7 @@
 		<tr>
 		</tr>
 		<tr>
-			<td> <center> <h1>Profile </center> </h1> </td>
+			<td> <br /><br /><center> <h1>Profile </center> </h1> </td>
 		</tr>
 		<tr>
 			<td> 
@@ -79,6 +79,8 @@
 
 					 ?> </b> 
 						<?php 
+
+
 								if($profile->id === $this->Session->read('usersid')) {
 									echo $this->Html->link($profile->email,'editEmail',array(
 														

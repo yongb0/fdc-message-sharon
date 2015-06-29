@@ -104,7 +104,7 @@
 ?>
 	<table>
 		<tr>
-			<td> <center> <h1> Edit Profile </center> </h1> </td>
+			<td><br /><br /> <center> <h1> Edit Profile </center> </h1> </td>
 		</tr>
 		<tr>
 			<td> 

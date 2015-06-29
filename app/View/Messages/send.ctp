@@ -50,6 +50,8 @@
 
 
             function showNextItems() {
+
+
                 var pagination = 3;
                 
                 for (var i = itemsCount; i < (itemsCount + pagination); i++) {
@@ -58,7 +60,7 @@
 
                 itemsCount += pagination;
                 
-                if (itemsCount > itemsMax) {
+                if (itemsCount > itemsMax || itemsCount == itemsMax) {
                     $('#showMore').hide();
                 }
             };

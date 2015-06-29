@@ -253,6 +253,7 @@
 		}
 
 		public function login() {
+			date_default_timezone_set('Asia/Manila');
 
 			if (!$this->Session->read("usersid")) {
 				$this->set('login',0);
