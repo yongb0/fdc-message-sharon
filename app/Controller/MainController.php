@@ -140,7 +140,6 @@
 											$user = $this->User->findByEmail($this->request->data['email']);
 											$id = $user['User']['id'];
 											$this->Session->write('usersid',$id);
-											echo "<script>alert('Successfully registered new user account');</script>";
 											echo "<script>location.href = 'completed'; </script>";
 										}
 							      	}

@@ -215,6 +215,9 @@
               display : block;
               padding : 20px;
           }
+          .select2-results__option{
+              width:100%;
+          }
 .select2-container {
     width: 200px;
 }
