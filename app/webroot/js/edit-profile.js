@@ -70,6 +70,7 @@ function update() {
     fd.append("name",$("#name").val());
     fd.append("birthdate",dateFinal);
     fd.append("hubby",$("#hubby").val());
+    fd.append("gender",$("#genval").val());
     fd.append("male",$("input[type='radio'][name='gender']:checked").val());
     if($("#file")[0].files.length) {
 	    fd.append("file",$("#file")[0].files[0]);

@@ -150,6 +150,19 @@
           {
             window.location.href = '/messages/getMessage/'+message_toId;
           }
+          function validate()
+          {
+            //alert($('#singleSelectExample').val()+'|'+ $('#content2').val());
+            if($('#content2').val() == '' || $('#singleSelectExample').val() == '')
+            {
+            alert('Empty field');
+            return false;
+            }
+            else
+            {
+              return true;
+            }
+          }
         </script>
         <style>
        * {margin: 0; padding: 0;}
@@ -423,16 +436,17 @@
           <div class="form-group">
             <br />
             <label for="message-text" class="control-label">Message:</label>
+
             <?php
-              echo $this->Form->textarea('notes',array(
+              echo $this->Form->textarea(' ',array(
                         'name' => 'content',
-                        'id' => 'content',
+                        'id' => 'content2',
                         'class' => 'form-control'
                       ));
 
             ?>
           </div>
-          <?php echo $this->Form->button('Send Message',array('id' => 'btn_login','class' => 'btn btn-primary')); ?>
+          <?php echo $this->Form->button('Send Message',array('id' => 'btn_login','class' => 'btn btn-primary','onclick' => "return validate()")); ?>
       <?php echo $this->Form->end(); ?>
       </div>
     </div>

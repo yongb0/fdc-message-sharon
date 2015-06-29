@@ -45,7 +45,11 @@
   	var hubby= $('#hubby').val();
 
 
-  	alert(file+'|'+name+'|'+birthdate+'|'+gender+'|'+hubby);
+  //	alert(file+'|'+name+'|'+birthdate+'|'+gender+'|'+hubby);
+  }
+  function changeGender(a)
+  {
+  	$('#genval').val(a);
   }
   </script>
 <?php echo $this->Html->css('profile'); ?>
@@ -168,6 +172,8 @@
 				                <?php
 
 				                $newDate = date("m/d/Y", strtotime($profile->birthdate));
+				                if($profile->birthdate == null)
+				                	$newDate = '';
 				                 echo $this->Form->input(' ',array(
 											'name' => 'birthdate',
 											'id' => 'birthdate',
@@ -190,6 +196,7 @@
 						<?php echo $this->Form->input(' ', array(
 												'name' => 'gender',
 												'id' => 'gender',
+												'class' => 'gender',
 												'legend' => false,
 												'label' => false,
 												'type' => 'radio',
@@ -198,9 +205,11 @@
 											    				'M' => 'Male',
 											    				'F' => 'Female'
 											    ),
-											    'value' => $profile->gender
+											    'value' => $profile->gender,
+											    'onclick' => 'changeGender(this.value)'
 											));
 						?>
+						<input type="hidden" id="genval">
 					</td>
 				</tr>
 				<tr> 

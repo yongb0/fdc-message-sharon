@@ -77,11 +77,11 @@
 
 						//var_dump($sessname);
 
-						echo $profile->email; ?> </b> &nbsp;
+					 ?> </b> 
 						<?php 
 								if($profile->id === $this->Session->read('usersid')) {
-									echo $this->Html->link('','editEmail',array(
-														'class' => 'glyphicon glyphicon-edit',
+									echo $this->Html->link($profile->email,'editEmail',array(
+														
 														'id' => 'edit-email'
 															)
 								  						);

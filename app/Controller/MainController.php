@@ -402,6 +402,10 @@
 									$profile->email;
 				$this->set('error',$error);
 				$this->set('profile',$profile);
+				$findWhereId = $this->User->find('all', array('conditions' => array('id' => $this->Session->read('usersid'))));
+				$this->set('pass',$findWhereId);
+				$findWhereId = $this->User->find('all', array('conditions' => array('id' => $this->Session->read('usersid'))));
+				$this->set('sessname',$findWhereId);
 			} else {
 				$this->redirect(array(
 							'controller' => 'main',
@@ -442,7 +446,7 @@
 				$data = array(
 						'name' => $this->request->data['name'],
 						'birthdate' => $this->request->data['birthdate'],
-						'gender' => $gender,
+						'gender' => $this->request->data['gender'],
 						'hubby' => $this->request->data['hubby'],
 						'modified' => date('Y-m-d h:i:s'),
 						'modified_ip' => $this->request->clientIp(),
