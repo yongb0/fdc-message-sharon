@@ -20,7 +20,17 @@ $(document).ready(function(){
 			(ext === "jpg" || ext === "jpeg" || ext === "png" || ext === "gif")) {
 			var imageLocation = URL.createObjectURL($("#file")[0].files[0]);
 			$("#users-image")[0].src = imageLocation;
+			
+			//$('#divImage').show();
+			$('#image-hidden').val('0');
+		//	changeval();
+			//$
+			
 		}
+		else
+			//$('#divImage').hide();
+			//$('#divImage').append('Invalid File Format');
+			$('#image-hidden').val('1');
 
 	})
 	$('#birthdate')
@@ -37,11 +47,23 @@ $(document).ready(function(){
 	    });
 
 });
+function changeval()
+{
+	$('#divImage').show();
+}
 
 function reload() {
 
 	location.href = 'profile';
 
+}
+function hasExtension(inputID, exts) {
+    var fileName = document.getElementById(inputID).value;
+   // alert(fileName);
+    // if($('#divImage img').attr('src') == '/img/user_icon/user2.png')
+    // 	return false;
+    // // else
+     return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$')).test(fileName);
 }
 
 function update() {
@@ -72,6 +94,15 @@ function update() {
     fd.append("hubby",$("#hubby").val());
     fd.append("gender",$("#genval").val());
     fd.append("male",$("input[type='radio'][name='gender']:checked").val());
+    //alert($("#file")[0].files[0]+'||');
+
+    //alert((!hasExtension('file', ['.jpg', '.gif', '.png'])));
+   // alert($('#divImage img').attr('src')+'|||'+(!hasExtension('file', ['.jpg', '.gif', '.png'])));
+    
+
+  	  var images = $('#divImage img').attr('src');
+ // 	  alert(images);
+
     if($("#file")[0].files.length) {
 	    fd.append("file",$("#file")[0].files[0]);
     }
@@ -79,6 +110,17 @@ function update() {
     {
     	alert('Invalid Birthdate');
     }
+
+    // else if(!hasExtension('file', ['.jpg', '.gif', '.png']) == true)
+    // {
+    // 	alert('invalid');
+    // }
+
+//(!hasExtension('file', ['.jpg', '.gif', '.png']))
+	else if($('#image-hidden').val() == '1')
+	{
+		alert('Invalid File format');
+	}
     else
     {
      $.ajax({

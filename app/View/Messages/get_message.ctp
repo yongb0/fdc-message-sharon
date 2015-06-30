@@ -59,7 +59,7 @@
   <style>
 
 
-  
+    .collapsed {height:20px; overflow:hidden}
 
     #child {
       background-color: silver;
@@ -70,21 +70,10 @@
       border-radius: 10px;
       float:right;
       font-family: 'Schoolbell', arial, serif;
+
           
     }
-         #child:after {
-                content: '';
-                top: 1px;
-                left: -310px;
-                border: 0px solid;
-                display: block;
-                width: 430px;
-                 height: 26px;
-                background-color: transparent;
-                border-bottom-left-radius: 50%;
-                border-bottom-right-radius: 50%;
-                box-shadow: -11px 9px 0px 8px silver;
-            }
+       
     #child2 {
       background-color: silver;
       width: 70%;
@@ -95,19 +84,25 @@
       float:left;
       font-family: 'Schoolbell', arial, serif;
     }
-        #child2:after {
-                content: '';
-                top: 1px;
-                right: -410px;
-                border: 0px solid;
-                display: block;
-                width: 400px;
-                 height: 16px;
-                background-color: transparent;
-                border-bottom-left-radius: 50%;
-                border-bottom-right-radius: 50%;
-                box-shadow: 11px 9px 0px 8px silver;
+        
+            #showm{
+
+              position:absolute;
             }
+            .footerholder {
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+
+.footer {
+    background: none repeat scroll 0 0 blue;
+    height: 100px;
+    margin: auto;
+    width: 400px;
+}
   </style>
 
      <script type="text/javascript">
@@ -136,10 +131,56 @@ $('#showMore').on('click', function (e) {
     e.preventDefault();
     showNextItems();
 });
+  
+
+  
 
      })
     
+     function getNextPage()
+     {
 
+      page = $('#getPage').val();
+      userid = $('#getUserid').val();
+      page2 = +page + 1;
+
+
+      division = $('#countPage').val();
+
+     
+      res = +division % 2;
+      x = (+division - res) / 2;
+      result = x+ 1;
+      if(res > 0)
+        x = x+1;
+
+       $.ajax({
+            type: "POST",
+            url: '/messages/getPagination/'+userid+'/page:'+page2+'/sort:Message.modified/direction:asc',
+            data: {
+              }, 
+            
+            success: function(data){
+
+
+               // alert(x+'|rem='+res);
+                if(page2 == x)
+                  $('#show-more_id').hide();
+
+                $('#getPage').val(page2);
+
+
+                $('#getNext').append(data);
+
+          
+            },
+            error: function(data){
+            //cannot connect to server
+          //  alert('dfdf');
+            
+        }
+       });
+     }
     function deleteMessage(implodeIds)
           {
             var imp = implodeIds.split('-');
@@ -170,6 +211,7 @@ $('#showMore').on('click', function (e) {
        });
 
           }
+          
           </script>
 </head>
 
@@ -186,68 +228,32 @@ $('#showMore').on('click', function (e) {
   ?>
 
 
-
   
   <center>
   <table style='width:80%'>
 
 
       <?php
-     // var_dump($username);
-         //   echo $userid.'|'.$userid_to;
-      //echo $sessname;
+
+
+      $countPages =   $this->params['paging']['Message']['count'];
+      $image = $username[0]['users']['image'];
+
+     // var_dump($sessname);
       $idUser = $idUser;
+      ?>
+      <img src="<?php echo $this->webroot."img/users images/".$image; ?>" style='height:50px'>
+
+      <?php
       echo '<b>'.strtoupper($username[0]['users']['name']).'</b>&nbsp;&nbsp;&nbsp;&nbsp;';?>
+      
       <button type="button" alass="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">+New Message</button>
       <?php
-    //  var_dump($username);
-        foreach($messageList as $message)
-                 {
-                  $from_id = $message['Message']['from_id'];
-                  $to_id = $message['Message']['to_id'];
-                  $content = $message['Message']['content'];
-                  $modified = $message['Message']['modified'];
-                  $messageId = $message['Message']['id'];
 
-                  if($from_id == $me)
-                  {
-                    $bubbleCss = 'child';
-                  }
-                  else
-                    $bubbleCss = 'child2';
-
-
-                  ?>
-                  <tr>
-                        <div class = "outer" >
-                          <div class="child" id="<?php echo $bubbleCss;?>"> 
-
-                            <?php
-                            echo '<b><font>'.$content.'</font></b>'."<br>".'~'.$modified;
-                            //echo "<td colspan='30' class='$bubbleCss'>".'<font>'.$content.'</font>'."<br>".'~'.$modified."</td>";
-
-                         ?>
-                           <a href='#' onclick="deleteMessage('<?php echo $idUser.'-'.$messageId; ?>')"><span class="glyphicon glyphicon-trash"></span></a>
-                  
-                        </div>
-                         
-                       
-                        <br/>
-                       
-
-                    
-                         </div>
-
-
-                  </tr> 
-
-                  <?php
-                    }
-                  ?>    
+       ?>
 
         
   </table>  
-     <a href="#" id="showMore"><b><u>SEE MORE</u></b></a>
 
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
@@ -305,9 +311,75 @@ $('#showMore').on('click', function (e) {
 </div>
 
 
-
-
+  
 
 
 
 </body>
+
+<?php
+$paginator = $this->Paginator;
+//var_dump($users);
+      
+ foreach( $users as $user ){
+
+            $message_content = $user['Message']['content'];
+            $message_from = $user['Message']['from_id'];;
+            $message_to = $user['Message']['to_id'];;
+            $message_modified = $user['Message']['modified'];
+            $message_id = $user['Message']['id'];
+
+
+            if($message_from == $me)
+                  {
+                    $bubbleCss = 'child';
+                  }
+                  else
+                    $bubbleCss = 'child2';
+                  ?>
+
+            <p id="<?php echo $bubbleCss; ?>">
+                <?php
+            echo htmlspecialchars($user['Message']['content']).'<br />'.$message_modified;?>
+              <a href='#' onclick="deleteMessage('<?php echo $idUser.'-'.$message_id; ?>')"><span class="glyphicon glyphicon-trash"></span></a>
+                  
+            </p>
+
+
+
+<?php
+          //  echo '<li>'.$user['Message']['content'].'</li>';
+           
+        }
+     
+
+        ?>  <?php
+ 
+?>
+
+<input type="hidden" id="getPage" value="1">
+<input type="hidden" id="getUserid" value="<?php  echo $userid_to;?>">
+<input type="hidden" id="countPage" value="<?php echo $countPages; ?>">
+
+<div id="getNext">
+
+</div>
+
+<div class="row">
+    <div class="col-md-2 col-md-offset-5"></div>
+</div>
+  <div class="" >
+    <?php
+
+      if($paginator->hasNext()){
+               //   echo $paginator->next("Next",array('onlick'=>'getnextPAge()'));
+                  ?>
+                  <center>
+                    <input type="button" id="show-more_id" onclick="getNextPage()" value="Show More">
+                  </scenter>
+                  <?php
+              }
+
+      ?>
+    </div>
+  

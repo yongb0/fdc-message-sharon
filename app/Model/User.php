@@ -68,11 +68,7 @@ class User extends AppModel {
             'rule' => 'notEmpty',
             'message' => 'Hubby is required'
         ),
-        'image' => array(
-            'rule' => array('extension',array('jpg','png','gif')),
-            'message' => 'file is not a valid jpg,png or gif image file',
-            'on' => 'update',
-        ),
+       
     );
     
     public function match($check, $with) {

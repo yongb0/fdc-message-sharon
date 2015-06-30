@@ -163,6 +163,69 @@
               return true;
             }
           }
+
+
+
+           function getNextPage()
+           {
+             page = $('#getPage').val();
+             page2 = +page + 1;
+
+
+             division = $('#countPage').val();
+
+     
+              res = +division % 2;
+              x = (+division - res) / 2;
+              result = x+ 1;
+              if(res > 0)
+                x = x+1;
+
+             //send-pagination
+      
+             $.ajax({
+                  type: "POST",
+                  url: '/messages/sendPagination/page:'+page2,
+                  data: {
+                    }, 
+                  
+                  success: function(data){
+
+                    $('#getPage').val(page2);
+
+                    if(page2 == x)
+                    $('#show-more_id').hide();
+                     // alert(x+'|rem='+res);
+                   //  alert(data);
+
+                     $('#send-pagination').append(data);
+
+                
+                  },
+                  error: function(data){
+                  //cannot connect to server
+                //  alert('dfdf');
+                  
+              }
+             });
+           }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </script>
         <style>
        * {margin: 0; padding: 0;}
@@ -173,7 +236,7 @@
 
             ul {
             list-style-type: none;
-            width: 500px;
+            
             }
 
             h3 {
@@ -194,10 +257,7 @@
             overflow: auto;
             }
 
-            li:hover {
-            background: #eee;
-            cursor: pointer;
-            }
+           
             .selectRow {
                 display : block;
                 padding : 20px;
@@ -205,10 +265,7 @@
             .select2-container {
                 width: 200px;
             }
-            .onhover:hover {
-                background-color: blue;
-                color:#95B9C7;
-            }
+           
             .selectRow {
               display : block;
               padding : 20px;
@@ -219,6 +276,7 @@
 .select2-container {
     width: 200px;
 }
+
         </style>
     </head>
 
@@ -226,7 +284,7 @@
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-
+       
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -238,7 +296,8 @@
                 <a class="navbar-brand" href="<?php echo '/messages/send/' ?>">Message Board</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+           
                 <ul class="nav navbar-nav navbar-right">
                
 
@@ -254,7 +313,8 @@
                     
                    
                 </ul>
-            </div>
+             
+       
             <!-- /.navbar-collapse -->
       
         <!-- /.container -->
@@ -282,12 +342,16 @@
        
 
         </tr>
-   
+            
 
              
 
               <?php
-       
+              $paginator = $this->Paginator;
+           //   var_dump($messages);
+
+            date_default_timezone_set('Asia/Manila');
+            $dateToday = date('Y-m-d h:i:s');       
 
            //     $explodeContent = explode('@', $contentS); 
 
@@ -333,8 +397,7 @@
                    
                     <td colspan=4>  </td>
                      <td colspan='2'>
-                      <div class = "outer" >
-                    <div class="child" ><ul>
+                    <ul>
                   <li onclick="getMessageUser('<?php echo $message_toId ?>')">
                     <?php 
                       if($image != '')
@@ -365,7 +428,7 @@
                         ?>
                   </p>
                   </li>
-                  </ul></div></div>
+                  </ul>
                       </td></td>
                    
                    </tr> 
@@ -379,6 +442,8 @@
                  }
                //     var_dump($arr);
               ?>
+
+         
         
       </tbody>
     </table>
@@ -460,7 +525,23 @@
                         'class' => 'form-control'
                       ));
 
+
+               echo $this->Form->input(' ',array(
+                        'name' => 'created',
+                        'id' => 'created',
+                        'value' => $dateToday,
+                        'type' => 'hidden'
+                      ));
+
+               echo $this->Form->input(' ',array(
+                        'name' => 'modified',
+                        'id' => 'modified',
+                        'value' => $dateToday,
+                        'type' => 'hidden'
+                      ));
+
             ?>
+
           </div>
           <?php echo $this->Form->button('Send Message',array('id' => 'btn_login','class' => 'btn btn-primary','onclick' => "return validate()")); ?>
       <?php echo $this->Form->end(); ?>
@@ -496,3 +577,21 @@
 </head>
 
 <body>
+  <div id="send-pagination"></div>
+  <input type="hidden" id="getPage" value="1">
+<?php $countPages =   $this->params['paging']['Message']['count']; ?>
+<input type="hidden" id="countPage" value="<?php echo $countPages; ?>">
+<?php
+
+
+ if($paginator->hasNext()){
+         //   echo $paginator->next("Next",array('onlick'=>'getnextPAge()'));
+            ?>
+            <center>
+              <input type="button" id="show-more_id" onclick="getNextPage()" value="Show More">
+            </center>
+            <?php
+        }
+
+?>
+

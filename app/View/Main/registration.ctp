@@ -10,7 +10,7 @@ padding-left: 70px;
 
 <?php echo $this->Html->css('registration'); ?>
 
-<?php echo $this->Html->script('registration'); ?>
+<?php //echo $this->Html->script('registration'); ?>
 
 <div id="registration-container">
 <?php
@@ -39,6 +39,7 @@ padding-left: 70px;
 												'name' => 'name',
 												'class' => 'form-control',
 												'required' => true,
+												'pattern' => '.{5,}',
 												'placeholder' => 'Name',
 												'value' => (isset($data)) ? 
 																$data['name']
@@ -53,6 +54,7 @@ padding-left: 70px;
 		<td> 
 			<?php echo $this->Form->input(' ',array(
 												'name' => 'email',
+												'type' => 'email',
 												'required' => true,
 												'class' => 'form-control',
 												'placeholder' => 'email',
@@ -70,6 +72,7 @@ padding-left: 70px;
 			<?php echo $this->Form->password(' ',array(
 												'name' => 'password',
 												'required' => true,
+												'pattern' => '.{5,}',
 												'class' => 'form-control',
 												'placeholder' => 'Password',
 												'value' => (isset($data)) ? 
@@ -86,6 +89,7 @@ padding-left: 70px;
 			<?php echo $this->Form->password(' ',array(
 												'name' => 'cpassword',
 												'required' => true,
+												'pattern' => '.{5,}',
 												'class' => 'form-control',
 												'placeholder' => 'Confirm password',
 												'value' => (isset($data)) ? 
@@ -101,7 +105,7 @@ padding-left: 70px;
 		<td>
 			<center>
 			<?php echo $this->Form->button('Sign up',array(
-												'type' => 'button',
+												'type' => 'submit',
 												'required' => true,
 												'id' => 'btn-register',
 												'class'=> 'btn btn-primary'

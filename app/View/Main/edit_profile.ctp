@@ -26,7 +26,7 @@
 		today = mm+'/'+dd+'/'+yyyy;
 
   	
-    $( "#bd" ).datepicker();
+    $( "#birthdate" ).datepicker();
 
   	
   });
@@ -127,12 +127,16 @@
 								); 
 				?>
 				<center>
+					<div id="divImage">
 					<img src="<?php echo ($profile->image) ? 
 										$this->webroot."img/users images/$profile->image" :
 										$this->webroot."img/user_icon/user2.png"; 
 							?>"
 
 					style="max-width:300px;" id="users-image">
+				</div>
+				<input type="hidden" id="image-hidden">
+				<div id="image-copy"></div>
 				</center>
 				<br>
 				<center>  
