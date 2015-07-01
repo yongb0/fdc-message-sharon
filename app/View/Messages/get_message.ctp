@@ -156,13 +156,13 @@ $('#showMore').on('click', function (e) {
 
        $.ajax({
             type: "POST",
-            url: '/messages/getPagination/'+userid+'/page:'+page2+'/sort:Message.modified/direction:asc',
+            url: '/messages/getPagination/'+userid+'/page:'+page2,
             data: {
               }, 
             
             success: function(data){
 
-
+             //   alert(data);
                // alert(x+'|rem='+res);
                 if(page2 == x)
                   $('#show-more_id').hide();
@@ -186,6 +186,7 @@ $('#showMore').on('click', function (e) {
             var imp = implodeIds.split('-');
             var userid = imp[0];
             var messageid = imp[1];
+            var messageClass = imp[2];
 
             $.ajax({
             type: "POST",
@@ -200,8 +201,9 @@ $('#showMore').on('click', function (e) {
 
                 alert('Message Deleted');
 
+                $("."+messageClass).fadeIn(500).delay(500).fadeOut(500);
 
-                window.location.href = '/messages/getMessage/'+userid;
+             //   window.location.href = '/messages/getMessage/'+userid;
               
                
             },
@@ -241,77 +243,94 @@ $('#showMore').on('click', function (e) {
 
      // var_dump($sessname);
       $idUser = $idUser;
-      ?>
-      <img src="<?php echo $this->webroot."img/users images/".$image; ?>" style='height:50px'>
-
-      <?php
-      echo '<b>'.strtoupper($username[0]['users']['name']).'</b>&nbsp;&nbsp;&nbsp;&nbsp;';?>
       
-      <button type="button" alass="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">+New Message</button>
-      <?php
+      ?>
+      <?php 
+      if($image != '')
+      {
+      ?>
+          <img src="<?php echo $this->webroot."img/users images/".$image; ?>" style="height:50px">
+           <?php }
+           else
+            { ?><img src="<?php echo $this->webroot."img/user_icon/user2.png"; ?>" style='height:50px'>
+          <?php }
+            ?>
+          
+          
+       <?php
+            echo '<b>'.strtoupper($username[0]['users']['name']).'</b>&nbsp;&nbsp;&nbsp;&nbsp;';?>
+      
+                  <button type="button" alass="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">+New Message</button>
+                  <?php
 
-       ?>
+                   ?>
 
-        
-  </table>  
+                    
+              </table>  
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-       
-      </div>
-      <div class="modal-body">
-        <?php echo $this->Form->create('messages',array('controller' => 'messages','action' => 'addMessage')); ?>
-          <div class="form-group">
-            <input type='hidden' name='hideId' id='hideId' value='<?php echo $idUser; ?>'>  
-             <?php echo $this->Form->input(' ',array(
-                        'name' => 'to_id',
-                        'id' => 'to_id',
-                        'class' => 'form-control',
-                        'type' => 'hidden',
-                        'value' => $userid_to
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                   
+                  </div>
+                  <div class="modal-body">
+                    <?php echo $this->Form->create('messages',array('controller' => 'messages','action' => 'addMessage')); ?>
+                      <div class="form-group">
+                        <input type='hidden' name='hideId' id='hideId' value='<?php echo $idUser; ?>'>  
+                         <?php
+                         date_default_timezone_set('Asia/Manila');
+                        $dateToday = date('Y-m-d H:i:s');  
 
-                      )
-                    );
-                    ?>
-                     <?php echo $this->Form->input(' ',array(
-                        'name' => 'from_id',
-                        'id' => 'from_id',
-                        'class' => 'form-control',
-                        'type' => 'hidden',
-                        'value' => $this->Session->read('usersid')
-                      )
-                    );
-                    ?>
+                          echo $this->Form->input(' ',array(
+                                    'name' => 'to_id',
+                                    'id' => 'to_id',
+                                    'class' => 'form-control',
+                                    'type' => 'hidden',
+                                    'value' => $userid_to
 
-            <div id='divSearch'>
-           
+                                  )
+                                );
+                                ?>
+                                 <?php echo $this->Form->input(' ',array(
+                                    'name' => 'from_id',
+                                    'id' => 'from_id',
+                                    'class' => 'form-control',
+                                    'type' => 'hidden',
+                                    'value' => $this->Session->read('usersid')
+                                  )
+                                );
+                                ?>
 
+                        <div id='divSearch'>
+                       
+
+                        </div>
+
+                      </div>
+                      <div class="form-group">
+                        <label for="message-text" class="control-label">Message:</label>
+                        <?php
+                          echo $this->Form->textarea('notes',array(
+                                    'name' => 'content',
+                                    'id' => 'content',
+                                    'class' => 'form-control'
+                                  ));
+
+                        ?>
+                        <input type="hidden" value="<?php echo $dateToday ?>" name="created">
+                        <input type="hidden" value="<?php echo $dateToday ?>" name="modified">
+                      </div>
+                      <?php echo $this->Form->button('Send Message',array('id' => 'btn_login','class' => 'btn btn-primary')); ?>
+                  <?php echo $this->Form->end(); ?>
+                  </div>
+                </div>
+              </div>
             </div>
 
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="control-label">Message:</label>
-            <?php
-              echo $this->Form->textarea('notes',array(
-                        'name' => 'content',
-                        'id' => 'content',
-                        'class' => 'form-control'
-                      ));
 
-            ?>
-          </div>
-          <?php echo $this->Form->button('Send Message',array('id' => 'btn_login','class' => 'btn btn-primary')); ?>
-      <?php echo $this->Form->end(); ?>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  
+              
 
 
 
@@ -319,16 +338,18 @@ $('#showMore').on('click', function (e) {
 
 <?php
 $paginator = $this->Paginator;
+$tempCount = 0;
 //var_dump($users);
       
  foreach( $users as $user ){
-
+            $tempCount += 1;
             $message_content = $user['Message']['content'];
             $message_from = $user['Message']['from_id'];;
             $message_to = $user['Message']['to_id'];;
             $message_modified = $user['Message']['modified'];
             $message_id = $user['Message']['id'];
 
+            $pdiv = 'pdiv'.$tempCount;
 
             if($message_from == $me)
                   {
@@ -338,12 +359,13 @@ $paginator = $this->Paginator;
                     $bubbleCss = 'child2';
                   ?>
 
-            <p id="<?php echo $bubbleCss; ?>">
+            <p id="<?php echo $bubbleCss; ?>" class="<?php echo 'pdiv'.$message_id; ?>">
                 <?php
             echo htmlspecialchars($user['Message']['content']).'<br />'.$message_modified;?>
-              <a href='#' onclick="deleteMessage('<?php echo $idUser.'-'.$message_id; ?>')"><span class="glyphicon glyphicon-trash"></span></a>
+              <a href='#' onclick="deleteMessage('<?php echo $idUser.'-'.$message_id.'-'.'pdiv'.$message_id; ?>')"><span class="glyphicon glyphicon-trash"></span></a>
                   
             </p>
+
 
 
 

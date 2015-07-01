@@ -1,8 +1,9 @@
  <center>
- <table class="table table-striped table-hover" id="table-inbox" style="width: 84%">
+ <table class="table table-striped table-hover" id="table-inbox" style="width: 80%">
       <tbody>
         <tr>
-      
+          <td colspan='6'>  </td>
+                    <td colspan='2'>
 
                 </td>
        
@@ -19,7 +20,7 @@
            //     $explodeContent = explode('@', $contentS); 
 
 
-         //     var_dump($messages);
+         //      var_dump($messages);
 
                  
                 $arr[] = array();
@@ -63,6 +64,7 @@
                       </div> -->
                   <tr>
                    
+                    <td colspan='4' class="<?php echo $divclass; ?>">  </td>
                      <td colspan='2' class="<?php echo $divclass; ?>">
                     <ul>
                      

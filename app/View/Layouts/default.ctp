@@ -33,13 +33,23 @@ $cakeDescription = __d('cake_dev', 'Message Board');
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->css('belamids_bootstrap');
 		echo $this->Html->css('datepicker.min');
+		?>
+  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+		<?php
 		echo "<script>var base_url = '" . $this->webroot . "'</script>";
-		echo $this->Html->script('jquery-1.9.1');
 		echo $this->Html->script('main');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+		
+		
 	?>
 </head>
 <body>
@@ -58,6 +68,6 @@ $cakeDescription = __d('cake_dev', 'Message Board');
 		</div>
 	</div>
 	
-	<?php // echo $this->element('sql_dump'); ?>
+	<?php  // echo $this->element('sql_dump'); ?>
 </body>
 </html>

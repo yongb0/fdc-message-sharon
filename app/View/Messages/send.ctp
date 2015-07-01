@@ -164,7 +164,51 @@
             }
           }
 
+          function sha()
+          {
+            page = $('#getPage').val();
+             page2 = +page + 1;
 
+
+             division = $('#countPage').val();
+
+     
+              res = +division % 2;
+              x = (+division - res) / 2;
+              result = x+ 1;
+              if(res > 0)
+                x = x+1;
+
+             //send-pagination
+      
+             $.ajax({
+                  type: "POST",
+                  url: '/messages/sendPagination/page:'+page2,
+                 
+                  data: {
+                    }, 
+                  
+                  success: function(data){
+                //    alert(res+'---'+division);
+
+                    $('#getPage').val(page2);
+
+                    if(page2 == x)
+                    $('#show-more_id').hide();
+                     // alert(x+'|rem='+res);
+                   //  alert(data);
+
+                     $('#send-pagination').append(data);
+
+                
+                  },
+                  error: function(data){
+                  //cannot connect to server
+                //  alert('dfdf');
+                  
+              }
+             });
+          }
 
            function getNextPage()
            {
@@ -186,10 +230,12 @@
              $.ajax({
                   type: "POST",
                   url: '/messages/sendPagination/page:'+page2,
+                 
                   data: {
                     }, 
                   
                   success: function(data){
+                //    alert(res+'---'+division);
 
                     $('#getPage').val(page2);
 
@@ -216,7 +262,33 @@
 
 
 
+           function deleteConvo(div,to_id)
+           {
+            
 
+            $.ajax({
+            type: "POST",
+            url: '/messages/deleteConversation',
+            data: {
+             to_id : to_id
+              }, 
+            
+            success: function(data){
+
+
+            //    alert(data);
+
+                $("."+div).fadeIn(500).delay(500).fadeOut(500);
+
+             //   window.location.href = '/messages/getMessage/'+userid;
+              
+               
+            },
+            error: function(data){
+            //cannot connect to server
+        }
+       });
+           }
 
 
 
@@ -333,7 +405,7 @@
     <table class="table table-striped table-hover" id="table-inbox" style="width: 80%">
       <tbody>
         <tr>
-          <td colspan=4>  </td>
+          <td colspan='4'>  </td>
                     <td colspan='2'>
                        <h2> My Messages </h2>
                     <button type="button" alass="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">+New Message</button>
@@ -344,19 +416,17 @@
         </tr>
             
 
-             
-
-              <?php
+                   <?php
               $paginator = $this->Paginator;
-           //   var_dump($messages);
+   //           var_dump($messages);
 
             date_default_timezone_set('Asia/Manila');
-            $dateToday = date('Y-m-d h:i:s');       
+            $dateToday = date('Y-m-d H:i:s');       
 
            //     $explodeContent = explode('@', $contentS); 
 
 
-              // var_dump($messages);
+         //    var_dump($messages);
 
                  
                 $arr[] = array();
@@ -383,6 +453,11 @@
 
                   ?>  
 
+                   <?php
+
+                      $divclass = 'pdiv'.$message_toId;
+                      ?>
+
                     
 
                      <!-- <div class ="outer" id="outer">
@@ -395,10 +470,10 @@
                       </div> -->
                   <tr>
                    
-                    <td colspan=4>  </td>
-                     <td colspan='2'>
+                     <td colspan='6' class="<?php echo $divclass; ?>">
                     <ul>
-                  <li onclick="getMessageUser('<?php echo $message_toId ?>')">
+                     
+                  <li onclick="getMessageUser('<?php echo $message_toId ?>')" class="<?php echo $divclass; ?>">
                     <?php 
                       if($image != '')
                       {
@@ -420,15 +495,17 @@
                       ?>
 
                     <?php
-                                 echo $this->Html->link(
-                                  $this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-trash')),
-                                  array('controller' => 'messages','action' => 'deleteConversation',$message['users']['id']),
-                                  array('class' => 'btn btn-mini','onclick' => "return confirm('are you sure?')", 'escape' => false)
-                              );
+                              //    echo $this->Html->link(
+                              //     $this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-trash')),
+                                 
+                              //     array('class' => 'btn btn-mini','onclick' => "deleteConvo('$divclass','$message_toId')", 'escape' => false)
+                              // );
                         ?>
+
                   </p>
                   </li>
                   </ul>
+                  <a href = "#" class="<?php echo $divclass; ?>" onclick = "deleteConvo('<?php echo $divclass ?>','<?php echo $message_toId ?>')"> <span class="glyphicon glyphicon-trash"></span></a>
                       </td></td>
                    
                    </tr> 
@@ -443,7 +520,6 @@
                //     var_dump($arr);
               ?>
 
-         
         
       </tbody>
     </table>
@@ -580,15 +656,16 @@
   <div id="send-pagination"></div>
   <input type="hidden" id="getPage" value="1">
 <?php $countPages =   $this->params['paging']['Message']['count']; ?>
-<input type="hidden" id="countPage" value="<?php echo $countPages; ?>">
+<input type="hidden" id="countPage" value="<?php echo $countRec; ?>">
 <?php
 
 
  if($paginator->hasNext()){
          //   echo $paginator->next("Next",array('onlick'=>'getnextPAge()'));
+
             ?>
             <center>
-              <input type="button" id="show-more_id" onclick="getNextPage()" value="Show More">
+              <input type="button" id="show-more_id" onclick="sha()" value="Show More">
             </center>
             <?php
         }

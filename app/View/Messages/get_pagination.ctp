@@ -1,9 +1,7 @@
 
-
 <body>
   <?php
       $me = $userid;
-
       $idUser = $idUser;
       ?>
 
@@ -16,14 +14,11 @@ $paginator = $this->Paginator;
 //var_dump($users);
       
  foreach( $users as $user ){
-
             $message_content = $user['Message']['content'];
             $message_from = $user['Message']['from_id'];
             $message_to = $user['Message']['to_id'];
             $message_modified = $user['Message']['modified'];
             $message_id = $user['Message']['id'];
-
-
             if($message_from == $me)
                   {
                     $bubbleCss = 'child';
@@ -32,10 +27,10 @@ $paginator = $this->Paginator;
                     $bubbleCss = 'child2';
                   ?>
 
-            <p id="<?php echo $bubbleCss; ?>">
+            <p id="<?php echo $bubbleCss; ?>" class="<?php echo 'pdiv'.$message_id; ?>">
                 <?php
             echo htmlspecialchars($user['Message']['content']).'<br />'.$message_modified;?>
-              <a href='#' onclick="deleteMessage('<?php echo $idUser.'-'.$message_id; ?>')"><span class="glyphicon glyphicon-trash"></span></a>
+              <a href='#' onclick="deleteMessage('<?php echo $idUser.'-'.$message_id.'-'.'pdiv'.$message_id; ?>')"><span class="glyphicon glyphicon-trash"></span></a>
                   
             </p>
 
@@ -46,7 +41,6 @@ $paginator = $this->Paginator;
            
         }
      
-
         ?>  <?php
  
 ?>
